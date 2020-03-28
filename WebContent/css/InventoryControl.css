@@ -9,44 +9,100 @@ h2 {
 	text-align: center;
 }
 
-.submit_btn {
+table {
+	border-collapse: collapse;
+	margin: auto;
+	table-layout: fixed;
+   	width: 65%;
+}
+
+table th, table td {
+	font-weight: normal;
+	border: solid 1px #000;
+}
+
+.btn {
+	display: flex;
+}
+
+.submit--btn {
 	display: block;
 	margin: 10px 0 20px 90%;
-	border-radius: 10%;
+	border-radius: 5%;
 	font-size: 20px;
 	padding: 5px 20px;
 	border-style: none;
-	border: 1px solid #999;
+	border: 1px solid #000;
 }
 
-.form_area {
+.update--btn {
+	border-radius: 5%;
+	font-size: 20px;
+	padding: 5px 20px;
+	border-style: none;
+	border: 1px solid #000;
+}
+
+.btn__update--btn {
+	display: block;
+	margin: 10px 0 20px 80%;
+	border-radius: 5%;
+	font-size: 20px;
+	padding: 5px 20px;
+	border-style: none;
+	border: 1px solid #000;
+}
+
+.btn__delete--btn {
+	display: block;
+	margin: 10px 0 20px 10px;
+	border-radius: 5%;
+	font-size: 20px;
+	padding: 5px 20px;
+	border-style: none;
+	border: 1px solid #000;
+}
+
+.list--count {
+	margin: 70px 0 10px 70% ;
+}
+
+.form {
 	margin: 0 25%
 }
 
-.input_box {
+.form__item {
+	display: flex;
+}
+
+.form__item--id {
+	margin-left: 490px;
+}
+
+.form__input--box {
 	margin: 10px 0;
 }
 
-.price_box {
+.form__input--box__price {
 	text-align: right;
 }
 
-.input_box input{
+.form__input--box input{
 	width: 500px;
 	height: 25px;
 	font-size: 100%;
-	border: 1px solid #999;
+	border: 1px solid #000;
 }
 
-.input_box select{
+.form__input--box select{
 	width: 505px;
 	font-size: 100%;
-	border: 1px solid #999;
+	border: 1px solid #000;
 }
 
-.input_box textarea{
+.form__input--box textarea{
 	width: 500px;
 	font-size: 100%;
 	vertical-align: top;
-	border: 1px solid #999;
+	border: 1px solid #000;
 }
