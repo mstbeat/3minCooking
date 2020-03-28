@@ -12,9 +12,9 @@
 		<h3>商品情報管理システム</h3>
 		<h2>商品情報登録</h2>
 		<form>
-			<input class="submit_btn" type="submit" value="登録">
-			<div class="form_area">
-				<div class="input_box">
+			<input class="submit--btn" type="submit" value="登録">
+			<div class="form">
+				<div class="form__input--box">
 					<label for="genre">ジャンル：</label>
 					<select name="genre">
 						<option value="">指定なし</option>
@@ -25,25 +25,24 @@
 						<option value="books">書籍</option>
 					</select>
 				</div>
-				<div class="input_box">
+				<div class="form__input--box">
 					<label for="maker">メーカー：</label>
 					<input type="text" name="maker">
 				</div>
-				<div class="input_box">
+				<div class="form__input--box">
 					<label for="name">　商品名：</label>
 					<input type="text" name="name">
 				</div>
-				<div class="input_box">
+				<div class="form__input--box">
 					<label for="price">販売価格：</label>
-					<input type="text" name="price" class="price_box">
+					<input type="text" name="price" class="form__input--box__price">
 				</div>
-				<div class="input_box">
+				<div class="form__input--box">
 					<label for="detail">商品説明：</label>
 					<textarea name="detail" rows="4"></textarea>
 				</div>
 			</div>
 		</form>
 	</main>
-
 </body>
 </html>
