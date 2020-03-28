@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="../css/InventoryControl.css">
+<link rel="stylesheet" type="text/css" href="/m.yasuda/css/InventoryControl.css">
 <title>商品情報一覧</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
 		<form>
 			<input class="submit--btn" type="submit" value="登録">
 			<div class="list--count">商品情報件数 3 件</div>
-			<table border="1" color="#999">
+			<table border="1">
 			    <tr>
 			      <th bgcolor="#BAD3FF">商品ID</th>
 			      <th bgcolor="#BAD3FF">ジャンル</th>

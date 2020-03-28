@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="../css/InventoryControl.css">
+<link rel="stylesheet" type="text/css" href="/m.yasuda/css/InventoryControl.css">
 <title>商品情報更新</title>
 </head>
 <body>
@@ -37,16 +37,16 @@
 					<input type="text" name="maker" value="パナソニック">
 				</div>
 				<div class="form__input--box">
-					<label for="name">　商品名：</label>
-					<input type="text" name="name" value="SB01-BK">
+					<label for="ProductName">　商品名：</label>
+					<input type="text" name="ProductName" value="SB01-BK">
 				</div>
 				<div class="form__input--box">
-					<label for="price">販売価格：</label>
-					<input type="text" name="price" class="price-box" value="31000">
+					<label for="sellingPrice">販売価格：</label>
+					<input type="text" name="sellingPrice" class="price-box" value="31000">
 				</div>
 				<div class="form__input--box">
-					<label for="detail">商品説明：</label>
-					<textarea name="detail" rows="4">テレビです 。</textarea>
+					<label for="productDetail">商品説明：</label>
+					<textarea name="productDetail" rows="4">テレビです 。</textarea>
 				</div>
 			</div>
 		</form>

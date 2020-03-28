@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="../css/InventoryControl.css">
+<link rel="stylesheet" type="text/css" href="/m.yasuda/css/InventoryControl.css">
 <title>商品情報登録</title>
 </head>
 <body>
 	<main>
 		<h3>商品情報管理システム</h3>
 		<h2>商品情報登録</h2>
-		<form>
+		<form action="/m.yasuda/product-registration" method="post">
 			<input class="submit--btn" type="submit" value="登録">
 			<div class="form">
 				<div class="form__input--box">
@@ -30,16 +30,16 @@
 					<input type="text" name="maker">
 				</div>
 				<div class="form__input--box">
-					<label for="name">　商品名：</label>
-					<input type="text" name="name">
+					<label for="productName">　商品名：</label>
+					<input type="text" name="productName">
 				</div>
 				<div class="form__input--box">
-					<label for="price">販売価格：</label>
-					<input type="text" name="price" class="form__input--box__price">
+					<label for="sellingPrice">販売価格：</label>
+					<input type="text" name="sellingPrice" class="form__input--box__price">
 				</div>
 				<div class="form__input--box">
-					<label for="detail">商品説明：</label>
-					<textarea name="detail" rows="4"></textarea>
+					<label for="productDetail">商品説明：</label>
+					<textarea name="productDetail" rows="4"></textarea>
 				</div>
 			</div>
 		</form>
