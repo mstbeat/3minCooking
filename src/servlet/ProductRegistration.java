@@ -56,6 +56,8 @@ public class ProductRegistration extends HttpServlet {
 			System.out.println("登録できませんでした");
 		}
 
+		response.sendRedirect("./product-list");
+
 //		System.out.println(genre);
 //		System.out.println(maker);
 //		System.out.println(productName);
