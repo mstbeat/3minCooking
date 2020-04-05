@@ -53,7 +53,7 @@ public class ProductUpdate extends HttpServlet {
 		// doGet(request, response);
 		request.setCharacterEncoding("UTF-8");
 
-		System.out.println("更新しました");
+		int productId = Integer.parseInt(request.getParameter("productId"));
 		String genre = request.getParameter("genre");
 		String maker = request.getParameter("maker");
 		String productName = request.getParameter("productName");
@@ -61,8 +61,9 @@ public class ProductUpdate extends HttpServlet {
 		String productDetail = request.getParameter("productDetail");
 
 		if (genre != null && maker != null && productName != null && sellingPrice != null && productDetail != null) {
-			ProductDto productDto = new ProductDto(genre, maker, productName, sellingPrice, productDetail);
-			productDto.execute(productDto);
+			ProductDto productDto = new ProductDto(productId, genre, maker, productName, sellingPrice, productDetail);
+			ProductDao dao = new ProductDao();
+			dao.update(productDto);
 		} else {
 			System.out.println("更新できませんでした");
 		}

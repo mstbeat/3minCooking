@@ -104,4 +104,33 @@ public class ProductDao {
 		}
 		return productDto;
 	}
+
+	public boolean update(ProductDto productDto) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException d) {
+            System.out.println("ドライバがありません" + d.getMessage());
+		}
+
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			String sql = "UPDATE t_ProductInfo SET genre=?, maker=?, productName=?, sellingPrice=?, productDetail=? WHERE productId=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			pStmt.setString(1, productDto.getGenre());
+			pStmt.setString(2, productDto.getMaker());
+			pStmt.setString(3, productDto.getProductName());
+			pStmt.setBigDecimal(4, productDto.getSellingPrice());
+			pStmt.setString(5, productDto.getProductDetail());
+			pStmt.setInt(6, productDto.getProductId());
+
+			int result = pStmt.executeUpdate();
+			if (result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }
