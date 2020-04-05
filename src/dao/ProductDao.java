@@ -74,4 +74,34 @@ public class ProductDao {
 		}
 		return true;
 	}
+
+	public ProductDto findOne(int productId) {
+		ProductDto productDto = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException d) {
+            System.out.println("ドライバがありません" + d.getMessage());
+		}
+
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			String sql = "SELECT * FROM t_ProductInfo WHERE productId=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setInt(1, productId);
+
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+			    String genre = rs.getString("genre");
+			    String maker = rs.getString("maker");
+			    String productName = rs.getString("productName");
+			    java.math.BigDecimal sellingPrice = rs.getBigDecimal("sellingPrice");
+			    String productDetail = rs.getString("productDetail");
+			    productDto = new ProductDto(productId, genre, maker, productName, sellingPrice, productDetail);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return productDto;
+	}
 }

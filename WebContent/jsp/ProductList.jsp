@@ -51,40 +51,10 @@
 				      <td><c:out value="${productDto.productName}" /></td>
 				      <td align="right"><c:out value="${productDto.sellingPrice}" /></td>
 				      <td align="center">
-				      	<input class="update--btn" type="submit" value="更新">
+				      	<button type="button" class="update--btn" onclick="location.href='/m.yasuda/product-update?productId=${productDto.productId}'">更新</button>
 				      </td>
 				    </tr>
 			    </c:forEach>
-			    <!-- <tr>
-			      <td align="right">1</td>
-			      <td>家電</td>
-			      <td>パナソニック</td>
-			      <td>201SB-BK</td>
-			      <td align="right">31000</td>
-			      <td align="center">
-			      	<input class="update--btn" type="submit" value="更新">
-			      </td>
-			    </tr>
-			    <tr>
-			      <td align="right">2</td>
-			      <td>家電</td>
-			      <td>SONY</td>
-			      <td>44K8-S01</td>
-			      <td align="right">68980</td>
-			      <td align="center">
-			      	<input class="update--btn" type="submit" value="更新">
-			      </td>
-			    </tr>
-			    <tr>
-			      <td align="right">3</td>
-			      <td>家電</td>
-			      <td>アイリスオーヤマ</td>
-			      <td>三段収納棚</td>
-			      <td align="right">4800</td>
-			      <td align="center">
-			      	<input class="update--btn" type="submit" value="更新">
-			      </td>
-			    </tr> -->
 			  </table>
 		</form>
 	</main>
