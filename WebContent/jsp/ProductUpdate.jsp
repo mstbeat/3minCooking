@@ -12,8 +12,9 @@
 	<main>
 		<h3>商品情報管理システム</h3>
 		<h2>商品情報更新</h2>
-		<form>
+		<form  action="/m.yasuda/product-update" method="post">
 			<div class="btn">
+				<input type="hidden" name="productId" value="${productDto.productId}">
 				<input class="btn__update--btn" type="submit" value="更新">
 				<input class="btn__delete--btn" type="submit" value="削除">
 			</div>
@@ -39,11 +40,11 @@
 				</div>
 				<div class="form__input--box">
 					<label for="ProductName">　商品名：</label>
-					<input type="text" name="ProductName" value="${productDto.productName}">
+					<input type="text" name="productName" value="${productDto.productName}">
 				</div>
 				<div class="form__input--box">
 					<label for="sellingPrice">販売価格：</label>
-					<input type="text" name="sellingPrice" class="price-box" value="${productDto.sellingPrice}">
+					<input type="text" name="sellingPrice" class="form__input--box__price" value="${productDto.sellingPrice}">
 				</div>
 				<div class="form__input--box">
 					<label for="productDetail">商品説明：</label>

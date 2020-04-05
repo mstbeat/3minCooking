@@ -2,6 +2,7 @@ package dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import dao.ProductDao;
 
@@ -43,7 +44,7 @@ public class ProductDto implements Serializable {
     	return maker;
     }
     public BigDecimal getSellingPrice() {
-    	return sellingPrice;
+    	return sellingPrice.setScale(0, RoundingMode.HALF_UP);
     }
     public String getProductDetail() {
     	return productDetail;
