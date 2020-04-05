@@ -57,12 +57,6 @@ public class ProductRegistration extends HttpServlet {
 		}
 
 		response.sendRedirect("./product-list");
-
-//		System.out.println(genre);
-//		System.out.println(maker);
-//		System.out.println(productName);
-//		System.out.println(sellingPrice);
-//		System.out.println(productDetail);
 	}
 
 }
