@@ -133,4 +133,28 @@ public class ProductDao {
 		}
 		return true;
 	}
+
+	public boolean delete(int productId) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException d) {
+            System.out.println("ドライバがありません" + d.getMessage());
+		}
+
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
+			String sql = "DELETE FROM t_ProductInfo WHERE productId=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			pStmt.setInt(1, productId);
+
+			int result = pStmt.executeUpdate();
+			if (result != 1) {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }

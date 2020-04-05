@@ -35,7 +35,7 @@ public class ProductUpdate extends HttpServlet {
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		String productId = request.getParameter("productId");
-		if ( productId == null) {
+		if (productId == null) {
 			response.sendRedirect("./product-list");
 		} else {
 			ProductDao dao = new ProductDao();

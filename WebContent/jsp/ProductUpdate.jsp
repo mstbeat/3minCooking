@@ -16,7 +16,7 @@
 			<div class="btn">
 				<input type="hidden" name="productId" value="${productDto.productId}">
 				<input class="btn__update--btn" type="submit" value="更新">
-				<input class="btn__delete--btn" type="submit" value="削除">
+				<button type="button" class="btn__delete--btn" onclick="location.href='/m.yasuda/ProductDelete?productId=${productDto.productId}'">削除</button>
 			</div>
 			<div class="form">
 				<div class="form__item">

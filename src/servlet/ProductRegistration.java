@@ -42,14 +42,13 @@ public class ProductRegistration extends HttpServlet {
 		// doGet(request, response);
 		request.setCharacterEncoding("UTF-8");
 
-		System.out.println("登録しました");
 		String genre = request.getParameter("genre");
 		String maker = request.getParameter("maker");
 		String productName = request.getParameter("productName");
 		BigDecimal sellingPrice = new BigDecimal(request.getParameter("sellingPrice"));
 		String productDetail = request.getParameter("productDetail");
 
-		if (genre != null && maker != null && productName != null && sellingPrice != null && productDetail != null) {
+		if (genre != null && maker != "" && productName != "" && sellingPrice != null && productDetail != "") {
 			ProductDto productDto = new ProductDto(genre, maker, productName, sellingPrice, productDetail);
 			productDto.execute(productDto);
 		} else {
