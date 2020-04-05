@@ -49,8 +49,7 @@ public class ProductList extends HttpServlet {
 		// doGet(request, response);
 		request.setCharacterEncoding("UTF-8");
 
-		System.out.println("編集画面に移動しました");
-		int productId = Integer.parseInt(request.getParameter("productId"));
+//		int productId = Integer.parseInt(request.getParameter("productId"));
 		String genre = request.getParameter("genre");
 		String maker = request.getParameter("maker");
 		String productName = request.getParameter("productName");
