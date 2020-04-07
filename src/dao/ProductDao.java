@@ -75,7 +75,7 @@ public class ProductDao {
 		return true;
 	}
 
-	public ProductDto findOne(int productId) {
+	public ProductDto findById(int productId) {
 		ProductDto productDto = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

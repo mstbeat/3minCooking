@@ -39,7 +39,7 @@ public class ProductUpdate extends HttpServlet {
 			response.sendRedirect("./product-list");
 		} else {
 			ProductDao dao = new ProductDao();
-			ProductDto productDto = dao.findOne(Integer.parseInt(productId));
+			ProductDto productDto = dao.findById(Integer.parseInt(productId));
 			request.setAttribute("productDto", productDto);
 			request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
 		}
