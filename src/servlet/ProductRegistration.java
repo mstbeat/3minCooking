@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,14 +44,14 @@ public class ProductRegistration extends HttpServlet {
 		String genre = request.getParameter("genre");
 		String maker = request.getParameter("maker");
 		String productName = request.getParameter("productName");
-		BigDecimal sellingPrice = new BigDecimal(request.getParameter("sellingPrice"));
+		java.math.BigDecimal sellingPrice = new java.math.BigDecimal(request.getParameter("sellingPrice"));
 		String productDetail = request.getParameter("productDetail");
 
-		if (genre != null && maker != "" && productName != "" && sellingPrice != null && productDetail != "") {
+		if (maker == null || maker.length() == 0 || productName == null || productName.length() == 0 || sellingPrice == null) {
+			System.out.println("登録できませんでした");
+		} else {
 			ProductDto productDto = new ProductDto(genre, maker, productName, sellingPrice, productDetail);
 			productDto.execute(productDto);
-		} else {
-			System.out.println("登録できませんでした");
 		}
 
 		response.sendRedirect("./product-list");
