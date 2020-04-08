@@ -60,7 +60,7 @@ public class ProductUpdate extends HttpServlet {
 		BigDecimal sellingPrice = new BigDecimal(request.getParameter("sellingPrice"));
 		String productDetail = request.getParameter("productDetail");
 
-		if (genre != null && maker != null && productName != null && sellingPrice != null && productDetail != null) {
+		if (maker != null && maker.length() != 0 && productName != null && productName.length() != 0 && sellingPrice != null) {
 			ProductDto productDto = new ProductDto(productId, genre, maker, productName, sellingPrice, productDetail);
 			ProductDao dao = new ProductDao();
 			dao.update(productDto);
