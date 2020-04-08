@@ -56,12 +56,13 @@ public class ProductRegistration extends HttpServlet {
 
 		if (maker == null || maker.length() == 0 || productName == null || productName.length() == 0) {
 			System.out.println("登録できませんでした");
+			response.sendRedirect("./product-registration");
 		} else {
 			ProductDto productDto = new ProductDto(genre, maker, productName, sellingPrice, productDetail);
 			productDto.execute(productDto);
+			response.sendRedirect("./product-list");
 		}
 
-		response.sendRedirect("./product-list");
 	}
 
 }
