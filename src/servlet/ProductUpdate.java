@@ -57,18 +57,28 @@ public class ProductUpdate extends HttpServlet {
 		String genre = request.getParameter("genre");
 		String maker = request.getParameter("maker");
 		String productName = request.getParameter("productName");
-		BigDecimal sellingPrice = new BigDecimal(request.getParameter("sellingPrice"));
+		BigDecimal sellingPrice;
 		String productDetail = request.getParameter("productDetail");
 
-		if (maker != null && maker.length() != 0 && productName != null && productName.length() != 0 && sellingPrice != null) {
+		if (request.getParameter("sellingPrice") != "") {
+			sellingPrice = new java.math.BigDecimal(request.getParameter("sellingPrice"));
+		} else {
+			sellingPrice = BigDecimal.ZERO;
+		}
+
+		if (maker != null && maker.length() != 0 && productName != null && productName.length() != 0) {
 			ProductDto productDto = new ProductDto(productId, genre, maker, productName, sellingPrice, productDetail);
 			ProductDao dao = new ProductDao();
 			dao.update(productDto);
+			response.sendRedirect("./product-list");
 		} else {
 			System.out.println("更新できませんでした");
+			ProductDao dao = new ProductDao();
+			ProductDto productDto = dao.findById(productId);
+			request.setAttribute("productDto", productDto);
+			request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
 		}
 
-		response.sendRedirect("./product-list");
 	}
 
 }

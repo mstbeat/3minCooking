@@ -16,7 +16,7 @@
 			<div class="btn">
 				<input type="hidden" name="productId" value="${productDto.productId}">
 				<input class="btn__update--btn" type="submit" value="更新" onclick="return confirm('更新してよろしいですか？');">
-				<a href="location.href='/m.yasuda/ProductDelete?productId=${productDto.productId}'" style="text-decoration:none;">
+				<a href="/m.yasuda/ProductDelete?productId=${productDto.productId}" style="text-decoration:none;">
 					<button type="button" class="btn__delete--btn" onclick="return confirm('削除してよろしいですか？');">削除</button>
 				</a>
 			</div>
