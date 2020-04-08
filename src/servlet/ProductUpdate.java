@@ -72,13 +72,10 @@ public class ProductUpdate extends HttpServlet {
 			dao.update(productDto);
 			response.sendRedirect("./product-list");
 		} else {
-			System.out.println("更新できませんでした");
 			ProductDao dao = new ProductDao();
 			ProductDto productDto = dao.findById(productId);
 			request.setAttribute("productDto", productDto);
 			request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
 		}
-
 	}
-
 }

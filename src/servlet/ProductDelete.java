@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ProductDao;
+import dto.ProductDto;
 
 /**
  * Servlet implementation class ProductDelete
@@ -32,13 +33,16 @@ public class ProductDelete extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		String productId = request.getParameter("productId");
-		if ( productId != null) {
+		if (productId != null) {
 			ProductDao dao = new ProductDao();
 			dao.delete(Integer.parseInt(productId));
+			response.sendRedirect("./product-list");
 		} else {
-			System.out.println("削除できませんでした");
+			ProductDao dao = new ProductDao();
+			ProductDto productDto = dao.findById(Integer.parseInt(productId));
+			request.setAttribute("productDto", productDto);
+			request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
 		}
-		response.sendRedirect("./product-list");
 	}
 
 	/**
@@ -48,5 +52,4 @@ public class ProductDelete extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
