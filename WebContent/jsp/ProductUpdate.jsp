@@ -15,8 +15,10 @@
 		<form  action="/m.yasuda/product-update" method="post">
 			<div class="btn">
 				<input type="hidden" name="productId" value="${productDto.productId}">
-				<input class="btn__update--btn" type="submit" value="更新">
-				<button type="button" class="btn__delete--btn" onclick="location.href='/m.yasuda/ProductDelete?productId=${productDto.productId}'">削除</button>
+				<input class="btn__update--btn" type="submit" value="更新" onclick="return confirm('更新してよろしいですか？');">
+				<a href="location.href='/m.yasuda/ProductDelete?productId=${productDto.productId}'" style="text-decoration:none;">
+					<button type="button" class="btn__delete--btn" onclick="return confirm('削除してよろしいですか？');">削除</button>
+				</a>
 			</div>
 			<div class="form">
 				<div class="form__item">
