@@ -28,12 +28,9 @@
 				<div class="form__input--box">
 					<label for="genre">ジャンル：</label>
 					<select name="genre">
-						<option value="0" <c:if test="${productDto.genre == 0}">selected</c:if>>指定なし</option>
-						<option value="1" <c:if test="${productDto.genre == 1}">selected</c:if>>家電</option>
-						<option value="2" <c:if test="${productDto.genre == 2}">selected</c:if>>家具</option>
-						<option value="3" <c:if test="${productDto.genre == 3}">selected</c:if>>食品</option>
-						<option value="4" <c:if test="${productDto.genre == 4}">selected</c:if>>ファッション</option>
-						<option value="5" <c:if test="${productDto.genre == 5}">selected</c:if>>書籍</option>
+						<c:forEach var="genre" items="${genres}">
+							<option value="${genre.value}" <c:if test="${productDto.genre == genre.value}">selected</c:if>>${genre.key}</option>
+						</c:forEach>
 					</select>
 				</div>
 				<div class="form__input--box">
