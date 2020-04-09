@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.ProductDto;
+import dto.ProductDto.Genre;
 
 /**
  * Servlet implementation class ProductRegistration
@@ -31,6 +32,7 @@ public class ProductRegistration extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setAttribute("genres", Genre.values());
 		request.getRequestDispatcher("/jsp/ProductRegistration.jsp").forward(request, response);
 	}
 

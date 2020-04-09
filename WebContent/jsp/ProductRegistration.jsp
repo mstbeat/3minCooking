@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,12 +18,9 @@
 				<div class="form__input--box">
 					<label for="genre">ジャンル：</label>
 					<select name="genre">
-						<option value="0">指定なし</option>
-						<option value="1">家電</option>
-						<option value="2">家具</option>
-						<option value="3">食品</option>
-						<option value="4">ファッション</option>
-						<option value="5">書籍</option>
+						<c:forEach var="genre" items="${genres}">
+							<option value="${genre.value}">${genre.key}</option>
+						</c:forEach>
 					</select>
 				</div>
 				<div class="form__input--box">
