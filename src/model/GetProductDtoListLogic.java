@@ -16,7 +16,16 @@ import java.util.List;
 import dao.ProductDao;
 import dto.ProductDto;
 
+/**
+* 商品情報一覧を生成するロジックを定義するクラス.
+* @author Masato Yasuda
+*/
 public class GetProductDtoListLogic {
+
+	/**
+	* 商品情報一覧をList型で戻すメソッド.
+	* @return 商品情報一覧
+	*/
 	public List<ProductDto> execute() {
    		ProductDao dao = new ProductDao();
    		List<ProductDto> productDtoList = dao.findAll();

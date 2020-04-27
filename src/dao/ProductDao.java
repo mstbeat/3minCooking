@@ -21,11 +21,25 @@ import java.util.List;
 
 import dto.ProductDto;
 
+/**
+* ProductDtoのデータベース処理を行なうクラス.
+* @author Masato Yasuda
+*/
 public class ProductDao {
+
+	/** 接続するJDBCのURL名 */
 	private final String JDBC_URL = "jdbc:mysql://localhost:3306/wbr_inventory_control";
+
+	/** 接続するユーザー名 */
 	private final String DB_USER = "root";
+
+	/** 接続するユーザーのパスワード */
 	private final String DB_PASS = "";
 
+	/**
+	* 全てのProductDtoデータを検索して商品情報一覧を戻すメソッド.
+	* @return 商品情報一覧
+	*/
 	public List<ProductDto> findAll() {
 		List<ProductDto> productDtoList = new ArrayList<>();
 
@@ -58,6 +72,11 @@ public class ProductDao {
 		return productDtoList;
 	}
 
+	/**
+	* ProductDtoデータを登録するメソッド.
+	* @param productDto 商品情報
+	* @param trueの場合は成功、falseの場合は失敗。
+	*/
 	public boolean create(ProductDto productDto) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -86,6 +105,11 @@ public class ProductDao {
 		return true;
 	}
 
+	/**
+	* ProductDtoデータをIDで検索するメソッド.
+	* @param productId 商品ID
+	* @return 商品情報
+	*/
 	public ProductDto findById(int productId) {
 		ProductDto productDto = null;
 		try {
@@ -116,6 +140,11 @@ public class ProductDao {
 		return productDto;
 	}
 
+	/**
+	* ProductDtoデータをIDで検索して更新するメソッド.
+	* @param productDto 商品情報
+	* @return trueの場合は成功、falseの場合は失敗。
+	*/
 	public boolean update(ProductDto productDto) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -145,6 +174,11 @@ public class ProductDao {
 		return true;
 	}
 
+	/**
+	* ProductDtoデータをIDで検索して削除するメソッド.
+	* @param productId 商品ID
+	* @return trueの場合は成功、falseの場合は失敗。
+	*/
 	public boolean delete(int productId) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
