@@ -14,14 +14,18 @@ package dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.SQLException;
 
 import dao.ProductDao;
 
 /**
-* 商品情報モデルを定義するクラス.
-* @author Masato Yasuda
-*/
+ * 商品情報モデルを定義するクラス.
+ * @author Masato Yasuda
+ */
 public class ProductDto implements Serializable {
+	
+	/** serialVersionUID */
+	private static final long serialVersionUID = 1L;
 
 	/** 商品ID */
 	private int productId;
@@ -36,59 +40,33 @@ public class ProductDto implements Serializable {
     private String maker;
 
     /** 販売価格 */
-    private java.math.BigDecimal sellingPrice;
+    private BigDecimal sellingPrice;
 
     /** 商品説明 */
     private String productDetail;
 
     /**
-	* 商品情報を商品IDなしで転送するメソッド.
-	* @param productId 商品ID
-	* @param genre ジャンル
-	* @param maker メーカー
-	* @param productName 商品名
-	* @param sellingPrice 販売価格
-	* @param productDetail 商品説明
-	*/
-    public ProductDto(String genre, String maker, String productName, java.math.BigDecimal sellingPrice, String productDetail) {
-    	this.genre = genre;
-    	this.maker = maker;
-    	this.productName = productName;
-    	this.sellingPrice = sellingPrice;
-    	this.productDetail = productDetail;
+     * デフォルトコンストラクタ
+     */
+    public ProductDto() {
     }
 
     /**
-	* 商品情報を商品IDと共に転送するメソッド.
-	* @param productId 商品ID
-	* @param genre ジャンル
-	* @param maker メーカー
-	* @param productName 商品名
-	* @param sellingPrice 販売価格
-	* @param productDetail 商品説明
-	*/
-    public ProductDto(int productId, String genre, String maker, String productName, java.math.BigDecimal sellingPrice, String productDetail) {
-    	this.productId = productId;
-    	this.genre = genre;
-    	this.maker = maker;
-    	this.productName = productName;
-    	this.sellingPrice = sellingPrice;
-    	this.productDetail = productDetail;
-    }
-
-    /**
-	* 商品情報をデータベースに登録するメソッド.
-	* @param productDto 商品情報データオブジェクト
-	*/
+	 * 商品情報をデータベースに登録するメソッド.
+	 * @param productDto 商品情報データオブジェクト
+	 */
     public void execute(ProductDto productDto) {
     	ProductDao dao = new ProductDao();
-    	dao.create(productDto);
+    	try {
+			dao.create(productDto);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
     }
 
     /**
-	* ジャンルを列挙型で扱い、値とキーを戻すメソッド.
-	* @return 列挙型 ジャンルの値とキー
-	*/
+	 * ジャンルを列挙型で扱い、値とキーを戻すメソッド.
+	 */
     public enum Genre {
     	NONE(0, "指定なし"),
     	APPLIANCES(1, "家電"),
@@ -109,81 +87,112 @@ public class ProductDto implements Serializable {
     	}
 
     	/**
-    	* 値を得るメソッド.
-    	* @return ジャンルの値
-    	*/
+    	 * 値を得るメソッド.
+    	 * @return ジャンルの値
+    	 */
     	public int getValue() {
     		return value;
     	}
 
     	/**
-    	* ジャンルの値を入れるメソッド.
-    	*/
-    	public void setValue(int value) {
-    		this.value = value;
-    	}
-
-    	/**
-    	* キーを得るメソッド.
-    	* @return ジャンルのキー
-    	*/
+    	 * キーを得るメソッド.
+    	 * @return ジャンルのキー
+    	 */
     	public String getKey() {
     		return key;
-    	}
-
-    	/**
-    	* ジャンルのキーを入れるメソッド.
-    	*/
-    	public void setKey(String key) {
-    		this.key = key;
     	}
     }
 
     /**
-	* 商品IDを得るメソッド.
-	* @return 商品ID
-	*/
+	 * 商品IDを得るメソッド.
+	 * @return 商品ID
+	 */
     public int getProductId() {
         return productId;
     }
 
     /**
-	* 商品名を得るメソッド.
-	* @return 商品名
-	*/
+	 * 商品名を得るメソッド.
+	 * @return 商品名
+	 */
     public String getProductName() {
     	return productName;
     }
 
     /**
-	* ジャンルを得るメソッド.
-	* @return ジャンル
-	*/
+	 * ジャンルを得るメソッド.
+	 * @return ジャンル
+	 */
     public String getGenre() {
     	return genre;
     }
 
     /**
-	* メーカーを得るメソッド.
-	* @return メーカー
-	*/
+	 * メーカーを得るメソッド.
+	 * @return メーカー
+	 */
     public String getMaker() {
     	return maker;
     }
 
     /**
-	* 販売価格を得るメソッド.
-	* @return 販売価格
-	*/
+	 * 販売価格を得るメソッド.
+	 * @return 販売価格
+	 */
     public BigDecimal getSellingPrice() {
     	return sellingPrice.setScale(0, RoundingMode.HALF_UP);
     }
 
     /**
-	* 商品説明を得るメソッド.
-	* @return 商品説明
-	*/
+	 * 商品説明を得るメソッド.
+	 * @return 商品説明
+	 */
     public String getProductDetail() {
     	return productDetail;
     }
+
+    /**
+   	 * 商品IDのセッターメソッド.
+   	 */
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+
+
+    /**
+	 * 商品名のセッターメソッド.
+	 */
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	/**
+	 * ジャンルのセッターメソッド.
+	 */
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	/**
+	 * メーカーのセッターメソッド.
+	 */
+	public void setMaker(String maker) {
+		this.maker = maker;
+	}
+
+	/**
+	 * 販売価格のセッターメソッド.
+	 */
+	public void setSellingPrice(BigDecimal sellingPrice) {
+		this.sellingPrice = sellingPrice;
+	}
+
+	 /**
+	 * 商品説明のセッターメソッド.
+	 */
+	public void setProductDetail(String productDetail) {
+		this.productDetail = productDetail;
+	}
+    
+    
 }

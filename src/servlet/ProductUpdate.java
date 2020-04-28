@@ -13,6 +13,7 @@ package servlet;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,26 +26,24 @@ import dto.ProductDto;
 import dto.ProductDto.Genre;
 
 /**
- * Servlet implementation class ProductUpdate
+ * 商品情報更新を行なうクラス.
+ * @author Masato Yasuda
  */
 @WebServlet("/product-update")
 public class ProductUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
-     * @see HttpServlet#HttpServlet()
+     * デフォルトコンストラクタ
      */
     public ProductUpdate() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+	 * 商品情報更新のdoGet()メソッド.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setAttribute("genres", Genre.values());
 
 		String productId = request.getParameter("productId");
@@ -52,18 +51,21 @@ public class ProductUpdate extends HttpServlet {
 			response.sendRedirect("./product-list");
 		} else {
 			ProductDao dao = new ProductDao();
-			ProductDto productDto = dao.findById(Integer.parseInt(productId));
-			request.setAttribute("productDto", productDto);
-			request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
+			ProductDto productDto;
+			try {
+				productDto = dao.findById(Integer.parseInt(productId));
+				request.setAttribute("productDto", productDto);
+				request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
+			} catch (NumberFormatException | SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 商品情報更新のdoPost()メソッド.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
 		request.setCharacterEncoding("UTF-8");
 
 		int productId = Integer.parseInt(request.getParameter("productId"));
@@ -74,20 +76,33 @@ public class ProductUpdate extends HttpServlet {
 		String productDetail = request.getParameter("productDetail");
 
 		if (request.getParameter("sellingPrice") != "") {
-			sellingPrice = new java.math.BigDecimal(request.getParameter("sellingPrice"));
+			sellingPrice = new BigDecimal(request.getParameter("sellingPrice"));
 		} else {
 			sellingPrice = BigDecimal.ZERO;
 		}
 
+		ProductDto productDto = new ProductDto();
+		ProductDao dao = new ProductDao();
 		if (maker != null && maker.length() != 0 && productName != null && productName.length() != 0) {
-			ProductDto productDto = new ProductDto(productId, genre, maker, productName, sellingPrice, productDetail);
-			ProductDao dao = new ProductDao();
-			dao.update(productDto);
+			productDto.setProductId(productId);
+		    productDto.setGenre(genre);
+		    productDto.setMaker(maker);
+		    productDto.setProductName(productName);
+		    productDto.setSellingPrice(sellingPrice);
+		    productDto.setProductDetail(productDetail);
+			try {
+				dao.update(productDto);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			response.sendRedirect("./product-list");
 		} else {
-			ProductDao dao = new ProductDao();
-			ProductDto productDto = dao.findById(productId);
-			request.setAttribute("productDto", productDto);
+			try {
+				productDto = dao.findById(productId);
+				request.setAttribute("productDto", productDto);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
 		}
 	}

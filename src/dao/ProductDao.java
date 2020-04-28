@@ -31,27 +31,28 @@ public class ProductDao {
 	private final String JDBC_URL = "jdbc:mysql://localhost:3306/wbr_inventory_control";
 
 	/** 接続するユーザー名 */
-	private final String DB_USER = "root";
+	private final String DB_USER = "testuser";
 
 	/** 接続するユーザーのパスワード */
-	private final String DB_PASS = "";
+	private final String DB_PASS = "testuser";
 
 	/**
 	* 全てのProductDtoデータを検索して商品情報一覧を戻すメソッド.
 	* @return 商品情報一覧
+	 * @throws SQLException 
 	*/
-	public List<ProductDto> findAll() {
+	public List<ProductDto> findAll() throws SQLException {
 		List<ProductDto> productDtoList = new ArrayList<>();
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException d) {
             System.out.println("ドライバがありません" + d.getMessage());
 		}
 
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-			String sql = "SELECT productId, genre, maker, productName, sellingPrice, productDetail FROM t_ProductInfo ORDER BY productId ASC";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+		String sql = "SELECT productId, genre, maker, productName, sellingPrice FROM t_ProductInfo ORDER BY productId ASC";
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+				PreparedStatement pStmt = conn.prepareStatement(sql)) {
 
 			ResultSet rs = pStmt.executeQuery();
 
@@ -61,13 +62,17 @@ public class ProductDao {
 			    String maker = rs.getString("maker");
 			    String productName = rs.getString("productName");
 			    java.math.BigDecimal sellingPrice = rs.getBigDecimal("sellingPrice");
-			    String productDetail = rs.getString("productDetail");
-			    ProductDto productDto = new ProductDto(productId, genre, maker, productName, sellingPrice, productDetail);
+			    ProductDto productDto = new ProductDto();
+			    productDto.setProductId(productId);
+			    productDto.setGenre(genre);
+			    productDto.setMaker(maker);
+			    productDto.setProductName(productName);			    
+			    productDto.setSellingPrice(sellingPrice);
 			    productDtoList.add(productDto);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			throw e;
 		}
 		return productDtoList;
 	}
@@ -75,18 +80,21 @@ public class ProductDao {
 	/**
 	* ProductDtoデータを登録するメソッド.
 	* @param productDto 商品情報
-	* @param trueの場合は成功、falseの場合は失敗。
+	* @return trueの場合は成功、falseの場合は失敗。
+	* @throws SQLException 
 	*/
-	public boolean create(ProductDto productDto) {
+	public boolean create(ProductDto productDto) throws SQLException {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException d) {
             System.out.println("ドライバがありません" + d.getMessage());
 		}
 
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-			String sql = "INSERT INTO t_ProductInfo(genre, maker, productName, sellingPrice, productDetail) VALUES (?, ?, ?, ?, ?)";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+		String sql = "INSERT INTO t_ProductInfo(genre, maker, productName, sellingPrice, productDetail) VALUES (?, ?, ?, ?, ?)";
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+				PreparedStatement pStmt = conn.prepareStatement(sql)) {
+			
+			conn.setAutoCommit(false);
 
 			pStmt.setString(1, productDto.getGenre());
 			pStmt.setString(2, productDto.getMaker());
@@ -98,9 +106,12 @@ public class ProductDao {
 			if (result != 1) {
 				return false;
 			}
+			
+			conn.commit();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw e;
 		}
 		return true;
 	}
@@ -109,33 +120,36 @@ public class ProductDao {
 	* ProductDtoデータをIDで検索するメソッド.
 	* @param productId 商品ID
 	* @return 商品情報
+	* @throws SQLException 
 	*/
-	public ProductDto findById(int productId) {
+	public ProductDto findById(int productId) throws SQLException {
 		ProductDto productDto = null;
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException d) {
             System.out.println("ドライバがありません" + d.getMessage());
 		}
 
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-			String sql = "SELECT * FROM t_ProductInfo WHERE productId=?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+		String sql = "SELECT genre, maker, productName, sellingPrice, productDetail FROM t_ProductInfo WHERE productId=?";
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+				PreparedStatement pStmt = conn.prepareStatement(sql)) {
+			
 			pStmt.setInt(1, productId);
 
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-			    String genre = rs.getString("genre");
-			    String maker = rs.getString("maker");
-			    String productName = rs.getString("productName");
-			    java.math.BigDecimal sellingPrice = rs.getBigDecimal("sellingPrice");
-			    String productDetail = rs.getString("productDetail");
-			    productDto = new ProductDto(productId, genre, maker, productName, sellingPrice, productDetail);
+			    productDto = new ProductDto();
+				productDto.setProductId(productId);
+			    productDto.setGenre(rs.getString("genre"));
+			    productDto.setMaker(rs.getString("maker"));
+			    productDto.setProductName(rs.getString("productName"));
+			    productDto.setSellingPrice(rs.getBigDecimal("sellingPrice"));
+			    productDto.setProductDetail(rs.getString("productDetail"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
+			throw e;
 		}
 		return productDto;
 	}
@@ -144,18 +158,21 @@ public class ProductDao {
 	* ProductDtoデータをIDで検索して更新するメソッド.
 	* @param productDto 商品情報
 	* @return trueの場合は成功、falseの場合は失敗。
+	* @throws SQLException 
 	*/
-	public boolean update(ProductDto productDto) {
+	public boolean update(ProductDto productDto) throws SQLException {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException d) {
             System.out.println("ドライバがありません" + d.getMessage());
 		}
 
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-			String sql = "UPDATE t_ProductInfo SET genre=?, maker=?, productName=?, sellingPrice=?, productDetail=? WHERE productId=?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+		String sql = "UPDATE t_ProductInfo SET genre=?, maker=?, productName=?, sellingPrice=?, productDetail=? WHERE productId=?";
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+				PreparedStatement pStmt = conn.prepareStatement(sql)) {
 
+			conn.setAutoCommit(false);
+			
 			pStmt.setString(1, productDto.getGenre());
 			pStmt.setString(2, productDto.getMaker());
 			pStmt.setString(3, productDto.getProductName());
@@ -167,9 +184,12 @@ public class ProductDao {
 			if (result != 1) {
 				return false;
 			}
+			
+			conn.commit();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw e;
 		}
 		return true;
 	}
@@ -178,27 +198,33 @@ public class ProductDao {
 	* ProductDtoデータをIDで検索して削除するメソッド.
 	* @param productId 商品ID
 	* @return trueの場合は成功、falseの場合は失敗。
+	* @throws SQLException 
 	*/
-	public boolean delete(int productId) {
+	public boolean delete(int productId) throws SQLException {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException d) {
             System.out.println("ドライバがありません" + d.getMessage());
 		}
 
-		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS)) {
-			String sql = "DELETE FROM t_ProductInfo WHERE productId=?";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+		String sql = "DELETE FROM t_ProductInfo WHERE productId=?";
+		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
+				PreparedStatement pStmt = conn.prepareStatement(sql)) {
 
+			conn.setAutoCommit(false);
+			
 			pStmt.setInt(1, productId);
 
 			int result = pStmt.executeUpdate();
 			if (result != 1) {
 				return false;
 			}
+			
+			conn.commit();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			throw e;
 		}
 		return true;
 	}

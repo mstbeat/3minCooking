@@ -13,6 +13,7 @@ package servlet;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -21,46 +22,47 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ProductDao;
 import dto.ProductDto;
-import model.GetProductDtoListLogic;
 
 /**
- * Servlet implementation class ProductList
+ * 商品情報一覧を行なうクラス.
+ * @author Masato Yasuda
  */
 @WebServlet("/product-list")
 public class ProductList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
-     * @see HttpServlet#HttpServlet()
+     * デフォルトコンストラクタ
      */
     public ProductList() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+	 * 商品情報一覧のdoGet()メソッド.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// response.getWriter().append("Served at: ").append(request.getContextPath());
-		GetProductDtoListLogic getProductDtoListLogic = new GetProductDtoListLogic();
-		List<ProductDto> productDtoList =  getProductDtoListLogic.execute();
-		request.setAttribute("productDtoList", productDtoList);
+		
+		ProductDao dao = new ProductDao();
+		List<ProductDto> productDtoList;
+		try {
+			productDtoList = dao.findAll();
+			request.setAttribute("productDtoList", productDtoList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		request.getRequestDispatcher("/jsp/ProductList.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 商品情報一覧のdoPost()メソッド.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
 		request.setCharacterEncoding("UTF-8");
 
-//		int productId = Integer.parseInt(request.getParameter("productId"));
 		String genre = request.getParameter("genre");
 		String maker = request.getParameter("maker");
 		String productName = request.getParameter("productName");
@@ -68,7 +70,12 @@ public class ProductList extends HttpServlet {
 		String productDetail = request.getParameter("productDetail");
 
 		if (genre != null && maker != null && productName != null && sellingPrice != null && productDetail != null) {
-			ProductDto productDto = new ProductDto(genre, maker, productName, sellingPrice, productDetail);
+			ProductDto productDto = new ProductDto();
+		    productDto.setGenre(genre);
+		    productDto.setMaker(maker);
+		    productDto.setProductName(productName);
+		    productDto.setSellingPrice(sellingPrice);
+		    productDto.setProductDetail(productDetail);
 			productDto.execute(productDto);
 		} else {
 			System.out.println("編集画面に移動できませんでした");
