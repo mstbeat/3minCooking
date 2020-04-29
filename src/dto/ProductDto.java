@@ -1,22 +1,19 @@
 /**
-* Copyright (c) Proud Data Co., Ltd. All Rights Reserved.
-* Please read the associated COPYRIGHTS file for more details. *
-* THE SOFTWARE IS PROVIDED BY Proud Group
-* WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
-* BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDER BE LIABLE FOR ANY
-* CLAIM, DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
-* OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES. */
+ * Copyright (c) Proud Data Co., Ltd. All Rights Reserved.
+ * Please read the associated COPYRIGHTS file for more details. *
+ * THE SOFTWARE IS PROVIDED BY Proud Group
+ * WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDER BE LIABLE FOR ANY
+ * CLAIM, DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
+ * OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES. */
 
 package dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.sql.SQLException;
-
-import dao.ProductDao;
 
 /**
  * 商品情報モデルを定義するクラス.
@@ -49,19 +46,6 @@ public class ProductDto implements Serializable {
      * デフォルトコンストラクタ
      */
     public ProductDto() {
-    }
-
-    /**
-	 * 商品情報をデータベースに登録するメソッド.
-	 * @param productDto 商品情報データオブジェクト
-	 */
-    public void execute(ProductDto productDto) {
-    	ProductDao dao = new ProductDao();
-    	try {
-			dao.create(productDto);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
     }
 
     /**

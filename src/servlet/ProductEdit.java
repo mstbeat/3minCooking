@@ -13,7 +13,6 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,13 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.ProductDao;
 import dto.ProductDto;
+import dto.ProductDto.Genre;
 
 /**
- * 商品情報一覧を行なうクラス.
+ * 商品情報更新画面を表示するクラス.
  * @author Masato Yasuda
  */
-@WebServlet("/product-list")
-public class ProductList extends HttpServlet {
+@WebServlet("/product-edit")
+public class ProductEdit extends HttpServlet {
 	
 	/**
 	 * serialVersionUIDの生成
@@ -39,26 +39,32 @@ public class ProductList extends HttpServlet {
     /**
      * デフォルトコンストラクタ
      */
-    public ProductList() {
+    public ProductEdit() {
         super();
     }
 
-    /**
-	 * 商品情報一覧のdoGet()メソッド.
+	/**
+	 * 商品情報更新画面のdoPost()メソッド.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ProductDao dao = new ProductDao();
-		List<ProductDto> productDtoList;
-		
-		try {
-			productDtoList = dao.findAll();
-			request.setAttribute("productDtoList", productDtoList);
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		request.setAttribute("genres", Genre.values());
 
-		request.getRequestDispatcher("/jsp/ProductList.jsp").forward(request, response);
+		String productId = request.getParameter("productId");
+		
+		if (productId == null) {
+			response.sendRedirect("./product-list");
+		} else {
+			ProductDao dao = new ProductDao();
+			ProductDto productDto;
+			try {
+				productDto = dao.findById(Integer.parseInt(productId));
+				request.setAttribute("productDto", productDto);
+				request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
+			} catch (NumberFormatException | SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 }

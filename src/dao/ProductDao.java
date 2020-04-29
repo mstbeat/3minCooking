@@ -1,13 +1,13 @@
 /**
-* Copyright (c) Proud Data Co., Ltd. All Rights Reserved.
-* Please read the associated COPYRIGHTS file for more details. *
-* THE SOFTWARE IS PROVIDED BY Proud Group
-* WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
-* BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDER BE LIABLE FOR ANY
-* CLAIM, DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
-* OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES. */
+ * Copyright (c) Proud Data Co., Ltd. All Rights Reserved.
+ * Please read the associated COPYRIGHTS file for more details. *
+ * THE SOFTWARE IS PROVIDED BY Proud Group
+ * WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDER BE LIABLE FOR ANY
+ * CLAIM, DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
+ * OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES. */
 
 package dao;
 
@@ -22,9 +22,9 @@ import java.util.List;
 import dto.ProductDto;
 
 /**
-* ProductDtoのデータベース処理を行なうクラス.
-* @author Masato Yasuda
-*/
+ * ProductDtoのデータベース処理を行なうクラス.
+ * @author Masato Yasuda
+ */
 public class ProductDao {
 
 	/** 接続するJDBCのURL名 */
@@ -37,11 +37,12 @@ public class ProductDao {
 	private final String DB_PASS = "testuser";
 
 	/**
-	* 全てのProductDtoデータを検索して商品情報一覧を戻すメソッド.
-	* @return 商品情報一覧
+	 * 全てのProductDtoデータを検索して商品情報一覧を戻すメソッド.
+	 * @return 商品情報一覧
 	 * @throws SQLException 
-	*/
-	public List<ProductDto> findAll() throws SQLException {
+	 */
+	public List<ProductDto> findAll() throws ClassNotFoundException, SQLException {
+		
 		List<ProductDto> productDtoList = new ArrayList<>();
 
 		try {
@@ -50,9 +51,16 @@ public class ProductDao {
             System.out.println("ドライバがありません" + d.getMessage());
 		}
 
-		String sql = "SELECT productId, genre, maker, productName, sellingPrice FROM t_ProductInfo ORDER BY productId ASC";
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT productId, ");
+		sql.append("genre, ");
+		sql.append("maker, ");
+		sql.append("productName, ");
+		sql.append("sellingPrice ");
+		sql.append("FROM t_ProductInfo ");
+		sql.append("ORDER BY productId ASC");
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
-				PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				PreparedStatement pStmt = conn.prepareStatement(sql.toString())) {
 
 			ResultSet rs = pStmt.executeQuery();
 
@@ -78,21 +86,28 @@ public class ProductDao {
 	}
 
 	/**
-	* ProductDtoデータを登録するメソッド.
-	* @param productDto 商品情報
-	* @return trueの場合は成功、falseの場合は失敗。
-	* @throws SQLException 
-	*/
-	public boolean create(ProductDto productDto) throws SQLException {
+	 * ProductDtoデータを登録するメソッド.
+	 * @param productDto 商品情報
+	 * @return trueの場合は成功、falseの場合は失敗。
+	 * @throws SQLException 
+	 */
+	public boolean create(ProductDto productDto) throws ClassNotFoundException, SQLException {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException d) {
             System.out.println("ドライバがありません" + d.getMessage());
 		}
 
-		String sql = "INSERT INTO t_ProductInfo(genre, maker, productName, sellingPrice, productDetail) VALUES (?, ?, ?, ?, ?)";
+		StringBuilder sql = new StringBuilder();
+		sql.append("INSERT INTO t_ProductInfo");
+		sql.append("(genre, ");
+		sql.append("maker, ");
+		sql.append("productName, ");
+		sql.append("sellingPrice, ");
+		sql.append("productDetail) ");
+		sql.append("VALUES (?, ?, ?, ?, ?)");
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
-				PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				PreparedStatement pStmt = conn.prepareStatement(sql.toString())) {
 			
 			conn.setAutoCommit(false);
 
@@ -117,12 +132,12 @@ public class ProductDao {
 	}
 
 	/**
-	* ProductDtoデータをIDで検索するメソッド.
-	* @param productId 商品ID
-	* @return 商品情報
-	* @throws SQLException 
-	*/
-	public ProductDto findById(int productId) throws SQLException {
+	 * ProductDtoデータをIDで検索するメソッド.
+	 * @param productId 商品ID
+	 * @return 商品情報
+	 * @throws SQLException 
+	 */
+	public ProductDto findById(int productId) throws ClassNotFoundException, SQLException {
 		ProductDto productDto = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -130,9 +145,16 @@ public class ProductDao {
             System.out.println("ドライバがありません" + d.getMessage());
 		}
 
-		String sql = "SELECT genre, maker, productName, sellingPrice, productDetail FROM t_ProductInfo WHERE productId=?";
+		StringBuilder sql = new StringBuilder();
+		sql.append("SELECT genre, ");
+		sql.append("maker, ");
+		sql.append("productName, ");
+		sql.append("sellingPrice, ");
+		sql.append("productDetail ");
+		sql.append("FROM t_ProductInfo ");
+		sql.append("WHERE productId=?");
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
-				PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				PreparedStatement pStmt = conn.prepareStatement(sql.toString())) {
 			
 			pStmt.setInt(1, productId);
 
@@ -155,21 +177,29 @@ public class ProductDao {
 	}
 
 	/**
-	* ProductDtoデータをIDで検索して更新するメソッド.
-	* @param productDto 商品情報
-	* @return trueの場合は成功、falseの場合は失敗。
-	* @throws SQLException 
-	*/
-	public boolean update(ProductDto productDto) throws SQLException {
+	 * ProductDtoデータをIDで検索して更新するメソッド.
+	 * @param productDto 商品情報
+	 * @return trueの場合は成功、falseの場合は失敗。
+	 * @throws SQLException 
+	 */
+	public boolean update(ProductDto productDto) throws ClassNotFoundException, SQLException {
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException d) {
             System.out.println("ドライバがありません" + d.getMessage());
 		}
 
-		String sql = "UPDATE t_ProductInfo SET genre=?, maker=?, productName=?, sellingPrice=?, productDetail=? WHERE productId=?";
+		StringBuilder sql = new StringBuilder();
+		sql.append("UPDATE t_ProductInfo ");
+		sql.append("SET genre=?, ");
+		sql.append("maker=?, ");
+		sql.append("productName=?, ");
+		sql.append("sellingPrice=?, ");
+		sql.append("productDetail=? ");
+		sql.append("WHERE productId=?");
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
-				PreparedStatement pStmt = conn.prepareStatement(sql)) {
+				PreparedStatement pStmt = conn.prepareStatement(sql.toString())) {
 
 			conn.setAutoCommit(false);
 			
@@ -195,12 +225,13 @@ public class ProductDao {
 	}
 
 	/**
-	* ProductDtoデータをIDで検索して削除するメソッド.
-	* @param productId 商品ID
-	* @return trueの場合は成功、falseの場合は失敗。
-	* @throws SQLException 
-	*/
-	public boolean delete(int productId) throws SQLException {
+	 * ProductDtoデータをIDで検索して削除するメソッド.
+	 * @param productId 商品ID
+	 * @return trueの場合は成功、falseの場合は失敗。
+	 * @throws SQLException 
+	 */
+	public boolean delete(int productId) throws ClassNotFoundException, SQLException {
+		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException d) {
@@ -228,4 +259,5 @@ public class ProductDao {
 		}
 		return true;
 	}
+	
 }

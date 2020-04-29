@@ -1,13 +1,13 @@
 /**
-* Copyright (c) Proud Data Co., Ltd. All Rights Reserved.
-* Please read the associated COPYRIGHTS file for more details. *
-* THE SOFTWARE IS PROVIDED BY Proud Group
-* WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
-* BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDER BE LIABLE FOR ANY
-* CLAIM, DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
-* OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES. */
+ * Copyright (c) Proud Data Co., Ltd. All Rights Reserved.
+ * Please read the associated COPYRIGHTS file for more details. *
+ * THE SOFTWARE IS PROVIDED BY Proud Group
+ * WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDER BE LIABLE FOR ANY
+ * CLAIM, DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
+ * OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES. */
 
 package servlet;
 
@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.ProductDao;
 import dto.ProductDto;
-import dto.ProductDto.Genre;
 
 /**
  * 商品情報更新を行なうクラス.
@@ -31,6 +30,10 @@ import dto.ProductDto.Genre;
  */
 @WebServlet("/product-update")
 public class ProductUpdate extends HttpServlet {
+	
+	/**
+	 * serialVersionUIDの生成
+	 */ 
 	private static final long serialVersionUID = 1L;
 
     /**
@@ -40,32 +43,11 @@ public class ProductUpdate extends HttpServlet {
         super();
     }
 
-    /**
-	 * 商品情報更新のdoGet()メソッド.
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("genres", Genre.values());
-
-		String productId = request.getParameter("productId");
-		if (productId == null) {
-			response.sendRedirect("./product-list");
-		} else {
-			ProductDao dao = new ProductDao();
-			ProductDto productDto;
-			try {
-				productDto = dao.findById(Integer.parseInt(productId));
-				request.setAttribute("productDto", productDto);
-				request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
-			} catch (NumberFormatException | SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	/**
 	 * 商品情報更新のdoPost()メソッド.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("UTF-8");
 
 		int productId = Integer.parseInt(request.getParameter("productId"));
@@ -83,6 +65,7 @@ public class ProductUpdate extends HttpServlet {
 
 		ProductDto productDto = new ProductDto();
 		ProductDao dao = new ProductDao();
+		
 		if (maker != null && maker.length() != 0 && productName != null && productName.length() != 0) {
 			productDto.setProductId(productId);
 		    productDto.setGenre(genre);
@@ -92,7 +75,7 @@ public class ProductUpdate extends HttpServlet {
 		    productDto.setProductDetail(productDetail);
 			try {
 				dao.update(productDto);
-			} catch (SQLException e) {
+			} catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			response.sendRedirect("./product-list");
@@ -100,10 +83,11 @@ public class ProductUpdate extends HttpServlet {
 			try {
 				productDto = dao.findById(productId);
 				request.setAttribute("productDto", productDto);
-			} catch (SQLException e) {
+			} catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
 		}
 	}
+	
 }

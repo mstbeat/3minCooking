@@ -1,18 +1,19 @@
 /**
-* Copyright (c) Proud Data Co., Ltd. All Rights Reserved.
-* Please read the associated COPYRIGHTS file for more details. *
-* THE SOFTWARE IS PROVIDED BY Proud Group
-* WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
-* BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-* IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDER BE LIABLE FOR ANY
-* CLAIM, DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
-* OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES. */
+ * Copyright (c) Proud Data Co., Ltd. All Rights Reserved.
+ * Please read the associated COPYRIGHTS file for more details. *
+ * THE SOFTWARE IS PROVIDED BY Proud Group
+ * WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDER BE LIABLE FOR ANY
+ * CLAIM, DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
+ * OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES. */
 
 package servlet;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.ProductDao;
 import dto.ProductDto;
 import dto.ProductDto.Genre;
 
@@ -29,6 +31,10 @@ import dto.ProductDto.Genre;
  */
 @WebServlet("/product-registration")
 public class ProductRegistration extends HttpServlet {
+	
+	/**
+	 * serialVersionUIDの生成
+	 */ 
 	private static final long serialVersionUID = 1L;
 
     /**
@@ -42,6 +48,7 @@ public class ProductRegistration extends HttpServlet {
 	 * 商品情報登録のdoGet()メソッド.
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setAttribute("genres", Genre.values());
 		request.getRequestDispatcher("/jsp/ProductRegistration.jsp").forward(request, response);
 	}
@@ -50,7 +57,7 @@ public class ProductRegistration extends HttpServlet {
 	 * 商品情報登録のdoPost()メソッド.
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// doGet(request, response);
+
 		request.setCharacterEncoding("UTF-8");
 
 		String genre = request.getParameter("genre");
@@ -74,8 +81,24 @@ public class ProductRegistration extends HttpServlet {
 		    productDto.setProductName(productName);
 		    productDto.setSellingPrice(sellingPrice);
 		    productDto.setProductDetail(productDetail);
-			productDto.execute(productDto);
+			this.execute(productDto);
 			response.sendRedirect("./product-list");
 		}
 	}
+	
+    /**
+	 * 商品情報をデータベースに登録するメソッド.
+	 * @param productDto 商品情報データオブジェクト
+	 */
+    public void execute(ProductDto productDto) {
+    	
+    	ProductDao dao = new ProductDao();
+    	
+    	try {
+			dao.create(productDto);
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+    }
+    
 }
