@@ -5,42 +5,40 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="/m.yasuda/css/InventoryControl.css">
+<link rel="stylesheet" type="text/css" href="css/InventoryControl.css">
 <title>商品情報登録</title>
 </head>
 <body>
-	<main>
-		<h3>商品情報管理システム</h3>
-		<h2>商品情報登録</h2>
-		<form action="/m.yasuda/product-registration" method="post">
-			<input class="submit--btn" type="submit" value="登録">
-			<div class="form">
-				<div class="form__input--box">
-					<label for="genre">ジャンル：</label>
-					<select name="genre">
-						<c:forEach var="genre" items="${genres}">
-							<option value="${genre.value}">${genre.key}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div class="form__input--box">
-					<label for="maker">メーカー：</label>
-					<input type="text" name="maker">
-				</div>
-				<div class="form__input--box">
-					<label for="productName">　商品名：</label>
-					<input type="text" name="productName">
-				</div>
-				<div class="form__input--box">
-					<label for="sellingPrice">販売価格：</label>
-					<input type="text" name="sellingPrice" class="form__input--box__price">
-				</div>
-				<div class="form__input--box">
-					<label for="productDetail">商品説明：</label>
-					<textarea name="productDetail" rows="4"></textarea>
-				</div>
+	<h3>商品情報管理システム</h3>
+	<h2>商品情報登録</h2>
+	<form action="/m.yasuda/product-registration" method="post">
+		<input class="submit-btn" type="submit" value="登録">
+		<div class="form-input">
+			<div class="form-input-box">
+				<label for="genre">ジャンル：</label>
+				<select name="genre" id="genre">
+					<c:forEach var="genre" items="${genres}">
+						<option value="${genre.value}">${genre.key}</option>
+					</c:forEach>
+				</select>
 			</div>
-		</form>
-	</main>
+			<div class="form-input-box">
+				<label for="maker">メーカー：</label>
+				<input type="text" name="maker" id="maker">
+			</div>
+			<div class="form-input-box">
+				<label for="productName">　商品名：</label>
+				<input type="text" name="productName" id="productName">
+			</div>
+			<div class="form-input-box">
+				<label for="sellingPrice">販売価格：</label>
+				<input type="text" name="sellingPrice" class="form-input-box-price" id="sellingPrice">
+			</div>
+			<div class="form-input-box">
+				<label for="productDetail">商品説明：</label>
+				<textarea name="productDetail" id="productDetail"></textarea>
+			</div>
+		</div>
+	</form>
 </body>
 </html>
