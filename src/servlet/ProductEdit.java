@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.ProductDao;
 import dto.ProductDto;
-import dto.ProductDto.Genre;
 
 /**
  * 商品情報更新画面を表示するクラス.
@@ -48,8 +47,6 @@ public class ProductEdit extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setAttribute("genres", Genre.values());
-
 		String productId = request.getParameter("productId");
 		
 		if (productId == null) {

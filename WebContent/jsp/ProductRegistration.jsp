@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="enums.Genre" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,7 @@
 			<div class="form-input-box">
 				<label for="genre">ジャンル：</label>
 				<select name="genre" id="genre">
-					<c:forEach var="genre" items="${genres}">
+					<c:forEach var="genre" items="${Genre.values()}">
 						<option value="${genre.value}">${genre.key}</option>
 					</c:forEach>
 				</select>

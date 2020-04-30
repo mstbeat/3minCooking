@@ -15,6 +15,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import enums.Genre;
+
 /**
  * 商品情報モデルを定義するクラス.
  * @author Masato Yasuda
@@ -47,46 +49,7 @@ public class ProductDto implements Serializable {
      */
     public ProductDto() {
     }
-
-    /**
-	 * ジャンルを列挙型で扱い、値とキーを戻すメソッド.
-	 */
-    public enum Genre {
-    	NONE(0, "指定なし"),
-    	APPLIANCES(1, "家電"),
-    	FURNITURE(2, "家具"),
-    	FOOD(3, "食品"),
-    	FASHION(4, "ファッション"),
-    	BOOK(5, "書籍");
-
-    	/** ジャンルの値 */
-    	private int value;
-
-    	/** ジャンルのキー */
-    	private String key;
-
-    	Genre(int value , String key){
-	    	this.value=value;
-	    	this.key = key;
-    	}
-
-    	/**
-    	 * 値を得るメソッド.
-    	 * @return ジャンルの値
-    	 */
-    	public int getValue() {
-    		return value;
-    	}
-
-    	/**
-    	 * キーを得るメソッド.
-    	 * @return ジャンルのキー
-    	 */
-    	public String getKey() {
-    		return key;
-    	}
-    }
-
+    
     /**
 	 * 商品IDを得るメソッド.
 	 * @return 商品ID
@@ -178,5 +141,10 @@ public class ProductDto implements Serializable {
 		this.productDetail = productDetail;
 	}
     
+	public static String getGenreName(String value) {
+		Genre genreValue = Genre.valueOf(value);
+		String genreName = genreValue.getKey();
+		return genreName;
+	}
     
 }

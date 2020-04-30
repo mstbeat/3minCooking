@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.ProductDao;
 import dto.ProductDto;
-import dto.ProductDto.Genre;
 
 /**
  * 商品情報登録を行なうクラス.
@@ -49,7 +48,6 @@ public class ProductRegistration extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.setAttribute("genres", Genre.values());
 		request.getRequestDispatcher("/jsp/ProductRegistration.jsp").forward(request, response);
 	}
 
