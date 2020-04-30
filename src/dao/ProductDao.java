@@ -45,11 +45,7 @@ public class ProductDao {
 		
 		List<ProductDto> productDtoList = new ArrayList<>();
 
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException d) {
-            System.out.println("ドライバがありません" + d.getMessage());
-		}
+		getDriver();
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT productId, ");
@@ -92,11 +88,8 @@ public class ProductDao {
 	 * @throws SQLException 
 	 */
 	public boolean create(ProductDto productDto) throws ClassNotFoundException, SQLException {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException d) {
-            System.out.println("ドライバがありません" + d.getMessage());
-		}
+		
+		getDriver();
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO t_ProductInfo");
@@ -139,11 +132,8 @@ public class ProductDao {
 	 */
 	public ProductDto findById(int productId) throws ClassNotFoundException, SQLException {
 		ProductDto productDto = null;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException d) {
-            System.out.println("ドライバがありません" + d.getMessage());
-		}
+		
+		getDriver();
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT genre, ");
@@ -184,12 +174,8 @@ public class ProductDao {
 	 */
 	public boolean update(ProductDto productDto) throws ClassNotFoundException, SQLException {
 		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException d) {
-            System.out.println("ドライバがありません" + d.getMessage());
-		}
-
+		getDriver();
+		
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE t_ProductInfo ");
 		sql.append("SET genre=?, ");
@@ -232,11 +218,7 @@ public class ProductDao {
 	 */
 	public boolean delete(int productId) throws ClassNotFoundException, SQLException {
 		
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-		} catch (ClassNotFoundException d) {
-            System.out.println("ドライバがありません" + d.getMessage());
-		}
+		getDriver();
 
 		String sql = "DELETE FROM t_ProductInfo WHERE productId=?";
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
@@ -260,4 +242,12 @@ public class ProductDao {
 		return true;
 	}
 	
+	public void getDriver() throws ClassNotFoundException {
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+            throw e;
+		}
+	}
 }
