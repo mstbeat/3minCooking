@@ -131,6 +131,7 @@ public class ProductDao {
 	 * @throws SQLException 
 	 */
 	public ProductDto findById(int productId) throws ClassNotFoundException, SQLException {
+		
 		ProductDto productDto = null;
 		
 		getDriver();
