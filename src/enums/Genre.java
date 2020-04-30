@@ -1,7 +1,8 @@
 package enums;
 
 /**
- * ジャンルを列挙型で扱い、値とキーを戻すメソッド.
+ * ジャンルを列挙型で扱い、値とキーを戻すenum.
+ * @author Masato Yasuda
  */
 public enum Genre {
 
