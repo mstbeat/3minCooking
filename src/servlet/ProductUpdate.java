@@ -30,24 +30,29 @@ import dto.ProductDto;
  */
 @WebServlet("/product-update")
 public class ProductUpdate extends HttpServlet {
-	
+
 	/**
 	 * serialVersionUIDの生成
-	 */ 
-	private static final long serialVersionUID = 1L;
+	 */
+	private static final long serialVersionUID = 42L;
 
-    /**
-     * デフォルトコンストラクタ
-     */
-    public ProductUpdate() {
-        super();
-    }
+	/**
+	 * デフォルトコンストラクタ
+	 */
+	public ProductUpdate() {
+		super();
+	}
 
 	/**
 	 * 商品情報更新のdoPost()メソッド.
+	 * @param request リクエストオブジェクト
+	 * @param response レスポンスオブジェクト
+	 * @throws ServletException サーブレットの処理で異常が発生した場合
+	 * @throws IOException 入出力例外が発生した場合
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 
 		int productId = Integer.parseInt(request.getParameter("productId"));
@@ -65,14 +70,14 @@ public class ProductUpdate extends HttpServlet {
 
 		ProductDto productDto = new ProductDto();
 		ProductDao dao = new ProductDao();
-		
+
 		if (maker != null && maker.length() != 0 && productName != null && productName.length() != 0) {
 			productDto.setProductId(productId);
-		    productDto.setGenre(genre);
-		    productDto.setMaker(maker);
-		    productDto.setProductName(productName);
-		    productDto.setSellingPrice(sellingPrice);
-		    productDto.setProductDetail(productDetail);
+			productDto.setGenre(genre);
+			productDto.setMaker(maker);
+			productDto.setProductName(productName);
+			productDto.setSellingPrice(sellingPrice);
+			productDto.setProductDetail(productDetail);
 			try {
 				dao.update(productDto);
 			} catch (SQLException | ClassNotFoundException e) {
@@ -89,5 +94,5 @@ public class ProductUpdate extends HttpServlet {
 			request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
 		}
 	}
-	
+
 }

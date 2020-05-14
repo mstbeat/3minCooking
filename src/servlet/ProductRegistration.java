@@ -30,31 +30,41 @@ import dto.ProductDto;
  */
 @WebServlet("/product-registration")
 public class ProductRegistration extends HttpServlet {
-	
+
 	/**
 	 * serialVersionUIDの生成
-	 */ 
-	private static final long serialVersionUID = 1L;
-
-    /**
-     * デフォルトコンストラクタ
-     */
-    public ProductRegistration() {
-        super();
-    }
-
-    /**
-	 * 商品情報登録のdoGet()メソッド.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private static final long serialVersionUID = 42L;
+
+	/**
+	 * デフォルトコンストラクタ
+	 */
+	public ProductRegistration() {
+		super();
+	}
+
+	/**
+	 * 商品情報登録のdoGet()メソッド.
+	 * @param request リクエストオブジェクト
+	 * @param response レスポンスオブジェクト
+	 * @throws ServletException サーブレットの処理で異常が発生した場合
+	 * @throws IOException 入出力例外が発生した場合
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		request.getRequestDispatcher("/jsp/ProductRegistration.jsp").forward(request, response);
 	}
 
 	/**
 	 * 商品情報登録のdoPost()メソッド.
+	 * @param request リクエストオブジェクト
+	 * @param response レスポンスオブジェクト
+	 * @throws ServletException サーブレットの処理で異常が発生した場合
+	 * @throws IOException 入出力例外が発生した場合
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 
@@ -74,29 +84,22 @@ public class ProductRegistration extends HttpServlet {
 			response.sendRedirect("./product-registration");
 		} else {
 			ProductDto productDto = new ProductDto();
-		    productDto.setGenre(genre);
-		    productDto.setMaker(maker);
-		    productDto.setProductName(productName);
-		    productDto.setSellingPrice(sellingPrice);
-		    productDto.setProductDetail(productDetail);
-			this.execute(productDto);
+			productDto.setGenre(genre);
+			productDto.setMaker(maker);
+			productDto.setProductName(productName);
+			productDto.setSellingPrice(sellingPrice);
+			productDto.setProductDetail(productDetail);
+
+			ProductDao dao = new ProductDao();
+			try {
+				dao.create(productDto);
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+
 			response.sendRedirect("./product-list");
 		}
+
 	}
-	
-    /**
-	 * 商品情報をデータベースに登録するメソッド.
-	 * @param productDto 商品情報データオブジェクト
-	 */
-    public void execute(ProductDto productDto) {
-    	
-    	ProductDao dao = new ProductDao();
-    	
-    	try {
-			dao.create(productDto);
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-    }
-    
+
 }

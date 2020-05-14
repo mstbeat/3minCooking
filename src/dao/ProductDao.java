@@ -28,7 +28,7 @@ import dto.ProductDto;
 public class ProductDao {
 
 	/** 接続するJDBCのURL名 */
-	private final String JDBC_URL = "jdbc:mysql://localhost:3306/wbr_inventory_control";
+	private final String JDBC_URL = "jdbc:mysql://localhost:3306/wbr_inventory_control?serverTimezone=JST";
 
 	/** 接続するユーザー名 */
 	private final String DB_USER = "testuser";
@@ -39,10 +39,11 @@ public class ProductDao {
 	/**
 	 * 全てのProductDtoデータを検索して商品情報一覧を戻すメソッド.
 	 * @return 商品情報一覧
-	 * @throws SQLException 
+	 * @throws ClassNotFoundException 内部でClassNotFoundExceptionが発生した場合 
+	 * @throws SQLException 内部でSQLExceptionが発生した場合
 	 */
 	public List<ProductDto> findAll() throws ClassNotFoundException, SQLException {
-		
+
 		List<ProductDto> productDtoList = new ArrayList<>();
 
 		getDriver();
@@ -61,21 +62,15 @@ public class ProductDao {
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-				int productId = rs.getInt("productId");
-			    String genre = rs.getString("genre");
-			    String maker = rs.getString("maker");
-			    String productName = rs.getString("productName");
-			    java.math.BigDecimal sellingPrice = rs.getBigDecimal("sellingPrice");
-			    ProductDto productDto = new ProductDto();
-			    productDto.setProductId(productId);
-			    productDto.setGenre(genre);
-			    productDto.setMaker(maker);
-			    productDto.setProductName(productName);			    
-			    productDto.setSellingPrice(sellingPrice);
-			    productDtoList.add(productDto);
+				ProductDto productDto = new ProductDto();
+				productDto.setProductId(rs.getInt("productId"));
+				productDto.setGenre(rs.getString("genre"));
+				productDto.setMaker(rs.getString("maker"));
+				productDto.setProductName(rs.getString("productName"));
+				productDto.setSellingPrice(rs.getBigDecimal("sellingPrice"));
+				productDtoList.add(productDto);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
 		}
 		return productDtoList;
@@ -85,10 +80,11 @@ public class ProductDao {
 	 * ProductDtoデータを登録するメソッド.
 	 * @param productDto 商品情報
 	 * @return trueの場合は成功、falseの場合は失敗。
-	 * @throws SQLException 
+	 * @throws ClassNotFoundException 内部でClassNotFoundExceptionが発生した場合 
+	 * @throws SQLException 内部でSQLExceptionが発生した場合
 	 */
 	public boolean create(ProductDto productDto) throws ClassNotFoundException, SQLException {
-		
+
 		getDriver();
 
 		StringBuilder sql = new StringBuilder();
@@ -101,7 +97,7 @@ public class ProductDao {
 		sql.append("VALUES (?, ?, ?, ?, ?)");
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
 				PreparedStatement pStmt = conn.prepareStatement(sql.toString())) {
-			
+
 			conn.setAutoCommit(false);
 
 			pStmt.setString(1, productDto.getGenre());
@@ -114,11 +110,10 @@ public class ProductDao {
 			if (result != 1) {
 				return false;
 			}
-			
+
 			conn.commit();
-			
+
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
 		}
 		return true;
@@ -128,12 +123,13 @@ public class ProductDao {
 	 * ProductDtoデータをIDで検索するメソッド.
 	 * @param productId 商品ID
 	 * @return 商品情報
-	 * @throws SQLException 
+	 * @throws ClassNotFoundException 内部でClassNotFoundExceptionが発生した場合 
+	 * @throws SQLException 内部でSQLExceptionが発生した場合
 	 */
 	public ProductDto findById(int productId) throws ClassNotFoundException, SQLException {
-		
+
 		ProductDto productDto = null;
-		
+
 		getDriver();
 
 		StringBuilder sql = new StringBuilder();
@@ -146,22 +142,21 @@ public class ProductDao {
 		sql.append("WHERE productId=?");
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
 				PreparedStatement pStmt = conn.prepareStatement(sql.toString())) {
-			
+
 			pStmt.setInt(1, productId);
 
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-			    productDto = new ProductDto();
+				productDto = new ProductDto();
 				productDto.setProductId(productId);
-			    productDto.setGenre(rs.getString("genre"));
-			    productDto.setMaker(rs.getString("maker"));
-			    productDto.setProductName(rs.getString("productName"));
-			    productDto.setSellingPrice(rs.getBigDecimal("sellingPrice"));
-			    productDto.setProductDetail(rs.getString("productDetail"));
+				productDto.setGenre(rs.getString("genre"));
+				productDto.setMaker(rs.getString("maker"));
+				productDto.setProductName(rs.getString("productName"));
+				productDto.setSellingPrice(rs.getBigDecimal("sellingPrice"));
+				productDto.setProductDetail(rs.getString("productDetail"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
 		}
 		return productDto;
@@ -171,12 +166,13 @@ public class ProductDao {
 	 * ProductDtoデータをIDで検索して更新するメソッド.
 	 * @param productDto 商品情報
 	 * @return trueの場合は成功、falseの場合は失敗。
-	 * @throws SQLException 
+	 * @throws ClassNotFoundException 内部でClassNotFoundExceptionが発生した場合 
+	 * @throws SQLException 内部でSQLExceptionが発生した場合
 	 */
 	public boolean update(ProductDto productDto) throws ClassNotFoundException, SQLException {
-		
+
 		getDriver();
-		
+
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE t_ProductInfo ");
 		sql.append("SET genre=?, ");
@@ -189,7 +185,7 @@ public class ProductDao {
 				PreparedStatement pStmt = conn.prepareStatement(sql.toString())) {
 
 			conn.setAutoCommit(false);
-			
+
 			pStmt.setString(1, productDto.getGenre());
 			pStmt.setString(2, productDto.getMaker());
 			pStmt.setString(3, productDto.getProductName());
@@ -201,11 +197,10 @@ public class ProductDao {
 			if (result != 1) {
 				return false;
 			}
-			
+
 			conn.commit();
-			
+
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
 		}
 		return true;
@@ -215,10 +210,11 @@ public class ProductDao {
 	 * ProductDtoデータをIDで検索して削除するメソッド.
 	 * @param productId 商品ID
 	 * @return trueの場合は成功、falseの場合は失敗。
-	 * @throws SQLException 
+	 * @throws ClassNotFoundException 内部でClassNotFoundExceptionが発生した場合 
+	 * @throws SQLException 内部でSQLExceptionが発生した場合
 	 */
 	public boolean delete(int productId) throws ClassNotFoundException, SQLException {
-		
+
 		getDriver();
 
 		String sql = "DELETE FROM t_ProductInfo WHERE productId=?";
@@ -226,29 +222,28 @@ public class ProductDao {
 				PreparedStatement pStmt = conn.prepareStatement(sql)) {
 
 			conn.setAutoCommit(false);
-			
+
 			pStmt.setInt(1, productId);
 
 			int result = pStmt.executeUpdate();
 			if (result != 1) {
 				return false;
 			}
-			
+
 			conn.commit();
-			
+
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw e;
 		}
 		return true;
 	}
-	
+
 	public void getDriver() throws ClassNotFoundException {
-		
+
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-            throw e;
+			throw e;
 		}
 	}
 }
