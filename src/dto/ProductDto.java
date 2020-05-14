@@ -20,91 +20,93 @@ import java.math.RoundingMode;
  * @author Masato Yasuda
  */
 public class ProductDto implements Serializable {
-	
+
 	/** serialVersionUID */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 42L;
 
 	/** 商品ID */
 	private int productId;
 
 	/** 商品名 */
-    private String productName;
+	private String productName;
 
-    /** ジャンル */
-    private String genre;
+	/** ジャンル */
+	private String genre;
 
-    /** メーカー */
-    private String maker;
+	/** メーカー */
+	private String maker;
 
-    /** 販売価格 */
-    private BigDecimal sellingPrice;
+	/** 販売価格 */
+	private BigDecimal sellingPrice;
 
-    /** 商品説明 */
-    private String productDetail;
+	/** 商品説明 */
+	private String productDetail;
 
-    /**
-     * デフォルトコンストラクタ
-     */
-    public ProductDto() {
-    }
-    
-    /**
+	/**
+	 * デフォルトコンストラクタ
+	 */
+	public ProductDto() {
+	}
+
+	/**
 	 * 商品IDを得るメソッド.
 	 * @return 商品ID
 	 */
-    public int getProductId() {
-        return productId;
-    }
+	public int getProductId() {
+		return productId;
+	}
 
-    /**
+	/**
 	 * 商品名を得るメソッド.
 	 * @return 商品名
 	 */
-    public String getProductName() {
-    	return productName;
-    }
+	public String getProductName() {
+		return productName;
+	}
 
-    /**
+	/**
 	 * ジャンルを得るメソッド.
 	 * @return ジャンル
 	 */
-    public String getGenre() {
-    	return genre;
-    }
+	public String getGenre() {
+		return genre;
+	}
 
-    /**
+	/**
 	 * メーカーを得るメソッド.
 	 * @return メーカー
 	 */
-    public String getMaker() {
-    	return maker;
-    }
+	public String getMaker() {
+		return maker;
+	}
 
-    /**
+	/**
 	 * 販売価格を得るメソッド.
 	 * @return 販売価格
 	 */
-    public BigDecimal getSellingPrice() {
-    	return sellingPrice.setScale(0, RoundingMode.HALF_UP);
-    }
+	public BigDecimal getSellingPrice() {
+		return sellingPrice.setScale(0, RoundingMode.HALF_UP);
+	}
 
-    /**
+	/**
 	 * 商品説明を得るメソッド.
 	 * @return 商品説明
 	 */
-    public String getProductDetail() {
-    	return productDetail;
-    }
+	public String getProductDetail() {
+		return productDetail;
+	}
 
-    /**
-   	 * 商品IDのセッターメソッド.
-   	 */
+	/**
+	 * 商品IDのセッターメソッド.
+	 * @param productId 商品ID
+	 */
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
 
-    /**
+	/**
 	 * 商品名のセッターメソッド.
+	 * @param productName 商品名
 	 */
 	public void setProductName(String productName) {
 		this.productName = productName;
@@ -112,6 +114,7 @@ public class ProductDto implements Serializable {
 
 	/**
 	 * ジャンルのセッターメソッド.
+	 * @param genre ジャンル
 	 */
 	public void setGenre(String genre) {
 		this.genre = genre;
@@ -119,6 +122,7 @@ public class ProductDto implements Serializable {
 
 	/**
 	 * メーカーのセッターメソッド.
+	 * @param maker メーカー
 	 */
 	public void setMaker(String maker) {
 		this.maker = maker;
@@ -126,6 +130,7 @@ public class ProductDto implements Serializable {
 
 	/**
 	 * 販売価格のセッターメソッド.
+	 * @param sellingPrice 販売価格
 	 */
 	public void setSellingPrice(BigDecimal sellingPrice) {
 		this.sellingPrice = sellingPrice;
@@ -133,9 +138,10 @@ public class ProductDto implements Serializable {
 
 	/**
 	 * 商品説明のセッターメソッド.
+	 * @param productDetail 商品説明
 	 */
 	public void setProductDetail(String productDetail) {
 		this.productDetail = productDetail;
 	}
-    
+
 }

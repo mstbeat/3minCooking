@@ -1,3 +1,14 @@
+/**
+ * Copyright (c) Proud Data Co., Ltd. All Rights Reserved.
+ * Please read the associated COPYRIGHTS file for more details. *
+ * THE SOFTWARE IS PROVIDED BY Proud Group
+ * WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDER BE LIABLE FOR ANY
+ * CLAIM, DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING
+ * OR DISTRIBUTING THIS SOFTWARE OR ITS DERIVATIVES. */
+
 package enums;
 
 /**
@@ -30,9 +41,9 @@ public enum Genre {
 	 * @param value ジャンルの値
 	 * @param key ジャンルのキー
 	 */
-	private Genre(String value , String key){
-    	this.value = value;
-    	this.key = key;
+	private Genre(String value, String key) {
+		this.value = value;
+		this.key = key;
 	}
 
 	/**
@@ -50,21 +61,19 @@ public enum Genre {
 	public String getKey() {
 		return key;
 	}
-	
+
 	/**
 	 * 値からキーを得るメソッド.
-	 * @param ジャンルの値
+	 * @param value ジャンルの値
+	 * @return ジャンルのキー
 	 */
-	public static String getKeyByValue(String value)
-    {
-        for(Genre genre : values())
-        {
-            if(genre.getValue().equals(value))
-            {
-                return genre.getKey();
-            }
-        }
-        throw new IllegalArgumentException(value);
-    }
-	
+	public static String getKeyByValue(String value) {
+		for (Genre genre : values()) {
+			if (genre.getValue().equals(value)) {
+				return genre.getKey();
+			}
+		}
+		throw new IllegalArgumentException(value);
+	}
+
 }

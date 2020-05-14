@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="enums.Genre" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -10,49 +9,49 @@
 <title>商品情報更新</title>
 </head>
 <body>
-	<h3>商品情報管理システム</h3>
-	<h2>商品情報更新</h2>
-	<form action="/m.yasuda/product-update" method="post">
-		<div class="btn">
-			<input type="hidden" name="productId" value="${productDto.productId}">
-			<input class="btn-update-btn" type="submit" value="更新" onclick="return confirm('更新してよろしいですか？');">
-		</div>
-		<div class="form-input">
-			<div class="form-item">
-				<div>　商品ID：</div>
-				<div class="form-item-id">${productDto.productId}</div>
-			</div>
-			<div class="form-input-box">
-				<label for="genre">ジャンル：</label>
-				<select name="genre" id="genre">
-					<c:forEach var="genre" items="${Genre.values()}">
-						<option value="${genre.value}" <c:if test="${productDto.genre == genre.value}">selected</c:if>>${genre.key}</option>
-					</c:forEach>
-				</select>
-			</div>
-			<div class="form-input-box">
-				<label for="maker">メーカー：</label>
-				<input type="text" name="maker" value="${productDto.maker}" id="maker">
-			</div>
-			<div class="form-input-box">
-				<label for="ProductName">　商品名：</label>
-				<input type="text" name="productName" value="${productDto.productName}" id="ProductName">
-			</div>
-			<div class="form-input-box">
-				<label for="sellingPrice">販売価格：</label>
-				<input type="text" name="sellingPrice" class="form-input-box-price" value="${productDto.sellingPrice}" id="sellingPrice">
-			</div>
-			<div class="form-input-box">
-				<label for="productDetail">商品説明：</label>
-				<textarea name="productDetail" id="productDetail">${productDto.productDetail}</textarea>
-			</div>
-		</div>
-	</form>
-	<form action="/m.yasuda/product-delete" method="post">
-		<div class="btn">
-			<input type="hidden" name="productId" value="${productDto.productId}">
-			<input class="btn-delete-btn" type="submit" value="削除" onclick="return confirm('削除してよろしいですか？');">
-		</div>
-	</form>
+  <h3>商品情報管理システム</h3>
+  <h2>商品情報更新</h2>
+  <form action="./product-update" method="post">
+    <div class="btn">
+      <input type="hidden" name="productId" value="${productDto.productId}">
+      <input class="btn-update-btn" type="submit" value="更新" onclick="return confirm('更新してよろしいですか？');">
+    </div>
+    <div class="form-input">
+      <div class="form-item">
+        <div>　商品ID：</div>
+        <div class="form-item-id">${productDto.productId}</div>
+      </div>
+      <div class="form-input-box">
+        <label for="genre">ジャンル：</label>
+        <select name="genre" id="genre">
+          <c:forEach var="genre" items="${Genre.values()}">
+            <option value="${genre.value}" <c:if test="${productDto.genre == genre.value}">selected</c:if>>${genre.key}</option>
+          </c:forEach>
+        </select>
+      </div>
+      <div class="form-input-box">
+        <label for="maker">メーカー：</label>
+        <input type="text" name="maker" value="${productDto.maker}" id="maker">
+      </div>
+      <div class="form-input-box">
+        <label for="ProductName">　商品名：</label>
+        <input type="text" name="productName" value="${productDto.productName}" id="ProductName">
+      </div>
+      <div class="form-input-box">
+        <label for="sellingPrice">販売価格：</label>
+        <input type="text" name="sellingPrice" class="form-input-box-price" value="${productDto.sellingPrice}" id="sellingPrice">
+      </div>
+      <div class="form-input-box">
+        <label for="productDetail">商品説明：</label>
+        <textarea name="productDetail" id="productDetail">${productDto.productDetail}</textarea>
+      </div>
+    </div>
+  </form>
+  <form action="./product-delete" method="post">
+    <div class="btn">
+      <input type="hidden" name="productId" value="${productDto.productId}">
+      <input class="btn-delete-btn" type="submit" value="削除" onclick="return confirm('削除してよろしいですか？');">
+    </div>
+  </form>
 </body>
 </html>

@@ -30,27 +30,32 @@ import dto.ProductDto;
  */
 @WebServlet("/product-list")
 public class ProductList extends HttpServlet {
-	
+
 	/**
 	 * serialVersionUIDの生成
-	 */ 
-	private static final long serialVersionUID = 1L;
-
-    /**
-     * デフォルトコンストラクタ
-     */
-    public ProductList() {
-        super();
-    }
-
-    /**
-	 * 商品情報一覧のdoGet()メソッド.
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	private static final long serialVersionUID = 42L;
+
+	/**
+	 * デフォルトコンストラクタ
+	 */
+	public ProductList() {
+		super();
+	}
+
+	/**
+	 * 商品情報一覧のdoGet()メソッド.
+	 * @param request リクエストオブジェクト
+	 * @param response レスポンスオブジェクト
+	 * @throws ServletException サーブレットの処理で異常が発生した場合
+	 * @throws IOException 入出力例外が発生した場合
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		ProductDao dao = new ProductDao();
 		List<ProductDto> productDtoList;
-		
+
 		try {
 			productDtoList = dao.findAll();
 			request.setAttribute("productDtoList", productDtoList);
@@ -60,5 +65,5 @@ public class ProductList extends HttpServlet {
 
 		request.getRequestDispatcher("/jsp/ProductList.jsp").forward(request, response);
 	}
-	
+
 }

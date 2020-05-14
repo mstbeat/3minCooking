@@ -28,26 +28,31 @@ import dao.ProductDao;
  */
 @WebServlet("/product-delete")
 public class ProductDelete extends HttpServlet {
-	
+
 	/**
 	 * serialVersionUIDの生成
-	 */ 
-	private static final long serialVersionUID = 1L;
+	 */
+	private static final long serialVersionUID = 42L;
 
-    /**
-     * デフォルトコンストラクタ
-     */
-    public ProductDelete() {
-        super();
-    }
+	/**
+	 * デフォルトコンストラクタ
+	 */
+	public ProductDelete() {
+		super();
+	}
 
 	/**
 	 * 商品情報削除のdoPost()メソッド.
+	 * @param request リクエストオブジェクト
+	 * @param response レスポンスオブジェクト
+	 * @throws ServletException サーブレットの処理で異常が発生した場合
+	 * @throws IOException 入出力例外が発生した場合
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String productId = request.getParameter("productId");
-		
+
 		if (productId != null) {
 			ProductDao dao = new ProductDao();
 			try {
@@ -60,5 +65,5 @@ public class ProductDelete extends HttpServlet {
 			response.sendRedirect("./product-list");
 		}
 	}
-	
+
 }

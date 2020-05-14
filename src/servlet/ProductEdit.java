@@ -29,26 +29,31 @@ import dto.ProductDto;
  */
 @WebServlet("/product-edit")
 public class ProductEdit extends HttpServlet {
-	
+
 	/**
 	 * serialVersionUIDの生成
-	 */ 
-	private static final long serialVersionUID = 1L;
+	 */
+	private static final long serialVersionUID = 42L;
 
-    /**
-     * デフォルトコンストラクタ
-     */
-    public ProductEdit() {
-        super();
-    }
+	/**
+	 * デフォルトコンストラクタ
+	 */
+	public ProductEdit() {
+		super();
+	}
 
 	/**
 	 * 商品情報更新画面のdoPost()メソッド.
+	 * @param request リクエストオブジェクト
+	 * @param response レスポンスオブジェクト
+	 * @throws ServletException サーブレットの処理で異常が発生した場合
+	 * @throws IOException 入出力例外が発生した場合
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		String productId = request.getParameter("productId");
-		
+
 		if (productId == null) {
 			response.sendRedirect("./product-list");
 		} else {
@@ -57,11 +62,11 @@ public class ProductEdit extends HttpServlet {
 			try {
 				productDto = dao.findById(Integer.parseInt(productId));
 				request.setAttribute("productDto", productDto);
-				request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
 			} catch (NumberFormatException | SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
+			request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
 		}
 	}
-	
+
 }
