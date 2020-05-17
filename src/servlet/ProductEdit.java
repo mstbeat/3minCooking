@@ -33,7 +33,7 @@ public class ProductEdit extends HttpServlet {
 	/**
 	 * serialVersionUIDの生成
 	 */
-	private static final long serialVersionUID = 42L;
+	private static final long serialVersionUID = -5046416453812744735L;
 
 	/**
 	 * デフォルトコンストラクタ
@@ -58,7 +58,7 @@ public class ProductEdit extends HttpServlet {
 			response.sendRedirect("./product-list");
 		} else {
 			ProductDao dao = new ProductDao();
-			ProductDto productDto;
+			ProductDto productDto = null;
 			try {
 				productDto = dao.findById(Integer.parseInt(productId));
 				request.setAttribute("productDto", productDto);
