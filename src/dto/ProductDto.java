@@ -22,7 +22,7 @@ import java.math.RoundingMode;
 public class ProductDto implements Serializable {
 
 	/** serialVersionUID */
-	private static final long serialVersionUID = 42L;
+	private static final long serialVersionUID = 2109134517826304845L;
 
 	/** 商品ID */
 	private int productId;

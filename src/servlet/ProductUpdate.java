@@ -34,7 +34,7 @@ public class ProductUpdate extends HttpServlet {
 	/**
 	 * serialVersionUIDの生成
 	 */
-	private static final long serialVersionUID = 42L;
+	private static final long serialVersionUID = 489746526976403939L;
 
 	/**
 	 * デフォルトコンストラクタ
@@ -62,7 +62,7 @@ public class ProductUpdate extends HttpServlet {
 		BigDecimal sellingPrice;
 		String productDetail = request.getParameter("productDetail");
 
-		if (request.getParameter("sellingPrice") != "") {
+		if (!((request.getParameter("sellingPrice")).equals(""))) {
 			sellingPrice = new BigDecimal(request.getParameter("sellingPrice"));
 		} else {
 			sellingPrice = BigDecimal.ZERO;

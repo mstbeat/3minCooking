@@ -34,7 +34,7 @@ public class ProductList extends HttpServlet {
 	/**
 	 * serialVersionUIDの生成
 	 */
-	private static final long serialVersionUID = 42L;
+	private static final long serialVersionUID = -1233198988895522088L;
 
 	/**
 	 * デフォルトコンストラクタ

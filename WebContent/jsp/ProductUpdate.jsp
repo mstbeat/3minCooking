@@ -25,7 +25,8 @@
         <label for="genre">ジャンル：</label>
         <select name="genre" id="genre">
           <c:forEach var="genre" items="${Genre.values()}">
-            <option value="${genre.value}" <c:if test="${productDto.genre == genre.value}">selected</c:if>>${genre.key}</option>
+            <option value="${genre.value}" <c:if test="${productDto.genre == genre.value}">selected</c:if>>
+              ${genre.key}</option>
           </c:forEach>
         </select>
       </div>
@@ -39,7 +40,8 @@
       </div>
       <div class="form-input-box">
         <label for="sellingPrice">販売価格：</label>
-        <input type="text" name="sellingPrice" class="form-input-box-price" value="${productDto.sellingPrice}" id="sellingPrice">
+        <input type="text" name="sellingPrice" class="form-input-box-price" value="${productDto.sellingPrice}" 
+          id="sellingPrice">
       </div>
       <div class="form-input-box">
         <label for="productDetail">商品説明：</label>

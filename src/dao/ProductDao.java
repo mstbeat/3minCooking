@@ -39,8 +39,8 @@ public class ProductDao {
 	/**
 	 * 全てのProductDtoデータを検索して商品情報一覧を戻すメソッド.
 	 * @return 商品情報一覧
-	 * @throws ClassNotFoundException 内部でClassNotFoundExceptionが発生した場合 
-	 * @throws SQLException 内部でSQLExceptionが発生した場合
+	 * @throws ClassNotFoundException クラスが存在しなかった場合の例外 
+	 * @throws SQLException DBアクセス時に起こる例外
 	 */
 	public List<ProductDto> findAll() throws ClassNotFoundException, SQLException {
 
@@ -80,8 +80,8 @@ public class ProductDao {
 	 * ProductDtoデータを登録するメソッド.
 	 * @param productDto 商品情報
 	 * @return trueの場合は成功、falseの場合は失敗。
-	 * @throws ClassNotFoundException 内部でClassNotFoundExceptionが発生した場合 
-	 * @throws SQLException 内部でSQLExceptionが発生した場合
+	 * @throws ClassNotFoundException クラスが存在しなかった場合の例外
+	 * @throws SQLException DBアクセス時に起こる例外
 	 */
 	public boolean create(ProductDto productDto) throws ClassNotFoundException, SQLException {
 
@@ -123,8 +123,8 @@ public class ProductDao {
 	 * ProductDtoデータをIDで検索するメソッド.
 	 * @param productId 商品ID
 	 * @return 商品情報
-	 * @throws ClassNotFoundException 内部でClassNotFoundExceptionが発生した場合 
-	 * @throws SQLException 内部でSQLExceptionが発生した場合
+	 * @throws ClassNotFoundException クラスが存在しなかった場合の例外
+	 * @throws SQLException DBアクセス時に起こる例外
 	 */
 	public ProductDto findById(int productId) throws ClassNotFoundException, SQLException {
 
@@ -166,8 +166,8 @@ public class ProductDao {
 	 * ProductDtoデータをIDで検索して更新するメソッド.
 	 * @param productDto 商品情報
 	 * @return trueの場合は成功、falseの場合は失敗。
-	 * @throws ClassNotFoundException 内部でClassNotFoundExceptionが発生した場合 
-	 * @throws SQLException 内部でSQLExceptionが発生した場合
+	 * @throws ClassNotFoundException クラスが存在しなかった場合の例外 
+	 * @throws SQLException DBアクセス時に起こる例外
 	 */
 	public boolean update(ProductDto productDto) throws ClassNotFoundException, SQLException {
 
@@ -210,8 +210,8 @@ public class ProductDao {
 	 * ProductDtoデータをIDで検索して削除するメソッド.
 	 * @param productId 商品ID
 	 * @return trueの場合は成功、falseの場合は失敗。
-	 * @throws ClassNotFoundException 内部でClassNotFoundExceptionが発生した場合 
-	 * @throws SQLException 内部でSQLExceptionが発生した場合
+	 * @throws ClassNotFoundException クラスが存在しなかった場合の例外 
+	 * @throws SQLException DBアクセス時に起こる例外
 	 */
 	public boolean delete(int productId) throws ClassNotFoundException, SQLException {
 
@@ -238,6 +238,10 @@ public class ProductDao {
 		return true;
 	}
 
+	/**
+	 * JDBCをロードするメソッド.
+	 * @throws ClassNotFoundException クラスが存在しなかった場合の例外 
+	 */
 	public void getDriver() throws ClassNotFoundException {
 
 		try {

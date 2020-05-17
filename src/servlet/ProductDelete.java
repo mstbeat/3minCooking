@@ -32,7 +32,7 @@ public class ProductDelete extends HttpServlet {
 	/**
 	 * serialVersionUIDの生成
 	 */
-	private static final long serialVersionUID = 42L;
+	private static final long serialVersionUID = 4442114982460592648L;
 
 	/**
 	 * デフォルトコンストラクタ
