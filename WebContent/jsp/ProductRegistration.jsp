@@ -15,28 +15,28 @@
     <input class="submit-btn" type="submit" value="登録">
     <div class="form-input">
       <div class="form-input-box">
-        <label for="genre">ジャンル：</label>
-        <select name="genre" id="genre">
+        <label>ジャンル：</label>
+        <select name="genre">
           <c:forEach var="genre" items="${Genre.values()}">
             <option value="${genre.value}">${genre.key}</option>
           </c:forEach>
         </select>
       </div>
       <div class="form-input-box">
-        <label for="maker">メーカー：</label>
-        <input type="text" name="maker" id="maker">
+        <label>メーカー：</label>
+        <input type="text" name="maker">
       </div>
       <div class="form-input-box">
-        <label for="productName">　商品名：</label>
-        <input type="text" name="productName" id="productName">
+        <label>　商品名：</label>
+        <input type="text" name="productName">
       </div>
       <div class="form-input-box">
-        <label for="sellingPrice">販売価格：</label>
-        <input type="text" name="sellingPrice" class="form-input-box-price" id="sellingPrice">
+        <label>販売価格：</label>
+        <input type="text" name="sellingPrice" class="form-input-box-price">
       </div>
       <div class="form-input-box">
-        <label for="productDetail">商品説明：</label>
-        <textarea name="productDetail" id="productDetail"></textarea>
+        <label>商品説明：</label>
+        <textarea name="productDetail"></textarea>
       </div>
     </div>
   </form>

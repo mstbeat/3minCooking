@@ -22,8 +22,8 @@
         <div class="form-item-id">${productDto.productId}</div>
       </div>
       <div class="form-input-box">
-        <label for="genre">ジャンル：</label>
-        <select name="genre" id="genre">
+        <label>ジャンル：</label>
+        <select name="genre">
           <c:forEach var="genre" items="${Genre.values()}">
             <option value="${genre.value}" <c:if test="${productDto.genre == genre.value}">selected</c:if>>
               ${genre.key}</option>
@@ -31,21 +31,20 @@
         </select>
       </div>
       <div class="form-input-box">
-        <label for="maker">メーカー：</label>
-        <input type="text" name="maker" value="${productDto.maker}" id="maker">
+        <label>メーカー：</label>
+        <input type="text" name="maker" value="${productDto.maker}">
       </div>
       <div class="form-input-box">
-        <label for="ProductName">　商品名：</label>
-        <input type="text" name="productName" value="${productDto.productName}" id="ProductName">
+        <label>　商品名：</label>
+        <input type="text" name="productName" value="${productDto.productName}">
       </div>
       <div class="form-input-box">
-        <label for="sellingPrice">販売価格：</label>
-        <input type="text" name="sellingPrice" class="form-input-box-price" value="${productDto.sellingPrice}" 
-          id="sellingPrice">
+        <label>販売価格：</label>
+        <input type="text" name="sellingPrice" class="form-input-box-price" value="${productDto.sellingPrice}">
       </div>
       <div class="form-input-box">
-        <label for="productDetail">商品説明：</label>
-        <textarea name="productDetail" id="productDetail">${productDto.productDetail}</textarea>
+        <label>商品説明：</label>
+        <textarea name="productDetail">${productDto.productDetail}</textarea>
       </div>
     </div>
   </form>
