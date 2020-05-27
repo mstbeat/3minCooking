@@ -46,8 +46,8 @@ public class ProductEdit extends HttpServlet {
 	 * 商品情報更新画面のdoPost()メソッド.
 	 * @param request リクエストオブジェクト
 	 * @param response レスポンスオブジェクト
-	 * @throws ServletException サーブレットの処理で異常が発生した場合
-	 * @throws IOException 入出力例外が発生した場合
+	 * @throws ServletException サーブレット実行時に起こりえる例外
+	 * @throws IOException 入出力時に起こりえる例外
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

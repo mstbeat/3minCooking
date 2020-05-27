@@ -49,7 +49,7 @@ public class ProductDto implements Serializable {
 	}
 
 	/**
-	 * 商品IDを得るメソッド.
+	 * 商品IDのゲッターメソッド.
 	 * @return 商品ID
 	 */
 	public int getProductId() {
@@ -57,7 +57,7 @@ public class ProductDto implements Serializable {
 	}
 
 	/**
-	 * 商品名を得るメソッド.
+	 * 商品名のゲッターメソッド.
 	 * @return 商品名
 	 */
 	public String getProductName() {
@@ -65,7 +65,7 @@ public class ProductDto implements Serializable {
 	}
 
 	/**
-	 * ジャンルを得るメソッド.
+	 * ジャンルのゲッターメソッド.
 	 * @return ジャンル
 	 */
 	public String getGenre() {
@@ -73,7 +73,7 @@ public class ProductDto implements Serializable {
 	}
 
 	/**
-	 * メーカーを得るメソッド.
+	 * メーカーのゲッターメソッド.
 	 * @return メーカー
 	 */
 	public String getMaker() {
@@ -81,7 +81,7 @@ public class ProductDto implements Serializable {
 	}
 
 	/**
-	 * 販売価格を得るメソッド.
+	 * 販売価格のゲッターメソッド.
 	 * @return 販売価格
 	 */
 	public BigDecimal getSellingPrice() {
@@ -89,7 +89,7 @@ public class ProductDto implements Serializable {
 	}
 
 	/**
-	 * 商品説明を得るメソッド.
+	 * 商品説明のゲッターメソッド.
 	 * @return 商品説明
 	 */
 	public String getProductDetail() {

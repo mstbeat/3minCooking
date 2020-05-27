@@ -47,8 +47,8 @@ public class ProductUpdate extends HttpServlet {
 	 * 商品情報更新のdoPost()メソッド.
 	 * @param request リクエストオブジェクト
 	 * @param response レスポンスオブジェクト
-	 * @throws ServletException サーブレットの処理で異常が発生した場合
-	 * @throws IOException 入出力例外が発生した場合
+	 * @throws ServletException サーブレット実行時に起こりえる例外
+	 * @throws IOException 入出力時に起こりえる例外
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -62,16 +62,17 @@ public class ProductUpdate extends HttpServlet {
 		BigDecimal sellingPrice;
 		String productDetail = request.getParameter("productDetail");
 
-		if (!((request.getParameter("sellingPrice")).equals(""))) {
-			sellingPrice = new BigDecimal(request.getParameter("sellingPrice"));
-		} else {
-			sellingPrice = BigDecimal.ZERO;
-		}
-
 		ProductDto productDto = new ProductDto();
 		ProductDao dao = new ProductDao();
+		String price = request.getParameter("sellingPrice");
 
-		if (maker != null && maker.length() != 0 && productName != null && productName.length() != 0) {
+		if (maker != null && maker.length() != 0 && productName != null && productName.length() != 0
+				&& isNumber(price)) {
+			if (price != null && !(price.isEmpty())) {
+				sellingPrice = new BigDecimal(price);
+			} else {
+				sellingPrice = BigDecimal.ZERO;
+			}
 			productDto.setProductId(productId);
 			productDto.setGenre(genre);
 			productDto.setMaker(maker);
@@ -92,6 +93,20 @@ public class ProductUpdate extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
+		}
+	}
+
+	/**
+	 * 入力値が数字であることを判定するメソッド.
+	 * @param s 入力値
+	 * @return 数字の場合はtrue、数字以外の場合はfalse
+	 */
+	public static boolean isNumber(String s) {
+		try {
+			Integer.parseInt(s);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
 		}
 	}
 
