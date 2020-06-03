@@ -66,9 +66,13 @@ public class ProductUpdate extends HttpServlet {
 		ProductDao dao = new ProductDao();
 		String price = request.getParameter("sellingPrice");
 
-		if (maker != null && maker.length() != 0 && productName != null && productName.length() != 0
-				&& isNumber(price)) {
+		if (maker != null && maker.length() != 0 && productName != null && productName.length() != 0) {
 			if (price != null && !(price.isEmpty())) {
+				try {
+					Integer.parseInt(price);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+				}
 				sellingPrice = new BigDecimal(price);
 			} else {
 				sellingPrice = BigDecimal.ZERO;
@@ -95,19 +99,4 @@ public class ProductUpdate extends HttpServlet {
 			request.getRequestDispatcher("/jsp/ProductUpdate.jsp").forward(request, response);
 		}
 	}
-
-	/**
-	 * 入力値が数字であることを判定するメソッド.
-	 * @param s 入力値
-	 * @return 数字の場合はtrue、数字以外の場合はfalse
-	 */
-	public static boolean isNumber(String s) {
-		try {
-			Integer.parseInt(s);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		}
-	}
-
 }
