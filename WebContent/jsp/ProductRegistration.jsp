@@ -27,7 +27,7 @@
         <input type="text" name="maker">
       </div>
       <div class="form-input-box">
-        <label>　商品名：</label>
+        <label class="form-input-box-left">商品名：</label>
         <input type="text" name="productName">
       </div>
       <div class="form-input-box">

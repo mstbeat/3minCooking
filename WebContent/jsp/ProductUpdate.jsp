@@ -18,7 +18,7 @@
     </div>
     <div class="form-input">
       <div class="form-item">
-        <div>　商品ID：</div>
+        <div class="form-input-box-left">商品ID：</div>
         <div class="form-item-id">${productDto.productId}</div>
       </div>
       <div class="form-input-box">
@@ -35,7 +35,7 @@
         <input type="text" name="maker" value="${productDto.maker}">
       </div>
       <div class="form-input-box">
-        <label>　商品名：</label>
+        <label class="form-input-box-left">商品名：</label>
         <input type="text" name="productName" value="${productDto.productName}">
       </div>
       <div class="form-input-box">
