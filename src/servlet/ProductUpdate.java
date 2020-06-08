@@ -59,24 +59,19 @@ public class ProductUpdate extends HttpServlet {
 		String genre = request.getParameter("genre");
 		String maker = request.getParameter("maker");
 		String productName = request.getParameter("productName");
-		BigDecimal sellingPrice;
 		String productDetail = request.getParameter("productDetail");
+
+		BigDecimal sellingPrice = null;
+		try {
+			sellingPrice = new BigDecimal(request.getParameter("sellingPrice"));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
 
 		ProductDto productDto = new ProductDto();
 		ProductDao dao = new ProductDao();
-		String price = request.getParameter("sellingPrice");
 
 		if (maker != null && maker.length() != 0 && productName != null && productName.length() != 0) {
-			if (price != null && !(price.isEmpty())) {
-				try {
-					Integer.parseInt(price);
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				}
-				sellingPrice = new BigDecimal(price);
-			} else {
-				sellingPrice = BigDecimal.ZERO;
-			}
 			productDto.setProductId(productId);
 			productDto.setGenre(genre);
 			productDto.setMaker(maker);
