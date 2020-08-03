@@ -53,6 +53,8 @@ public class ProductDao {
 		sql.append("genre, ");
 		sql.append("maker, ");
 		sql.append("productName, ");
+		sql.append("stock, ");
+		sql.append("salesCount, ");
 		sql.append("sellingPrice ");
 		sql.append("FROM t_ProductInfo ");
 		sql.append("ORDER BY productId ASC");
@@ -67,6 +69,8 @@ public class ProductDao {
 				productDto.setGenre(rs.getString("genre"));
 				productDto.setMaker(rs.getString("maker"));
 				productDto.setProductName(rs.getString("productName"));
+				productDto.setStock(rs.getInt("stock"));
+				productDto.setSalesCount(rs.getInt("salesCount"));
 				productDto.setSellingPrice(rs.getBigDecimal("sellingPrice"));
 				productDtoList.add(productDto);
 			}
@@ -92,9 +96,11 @@ public class ProductDao {
 		sql.append("(genre, ");
 		sql.append("maker, ");
 		sql.append("productName, ");
+		sql.append("stock, ");
+		sql.append("salesCount, ");
 		sql.append("sellingPrice, ");
 		sql.append("productDetail) ");
-		sql.append("VALUES (?, ?, ?, ?, ?)");
+		sql.append("VALUES (?, ?, ?, ?, ?, ?, ?)");
 		try (Connection conn = DriverManager.getConnection(JDBC_URL, DB_USER, DB_PASS);
 				PreparedStatement pStmt = conn.prepareStatement(sql.toString())) {
 
@@ -103,8 +109,10 @@ public class ProductDao {
 			pStmt.setString(1, productDto.getGenre());
 			pStmt.setString(2, productDto.getMaker());
 			pStmt.setString(3, productDto.getProductName());
-			pStmt.setBigDecimal(4, productDto.getSellingPrice());
-			pStmt.setString(5, productDto.getProductDetail());
+			pStmt.setInt(4, productDto.getStock());
+			pStmt.setInt(5, productDto.getSalesCount());
+			pStmt.setBigDecimal(6, productDto.getSellingPrice());
+			pStmt.setString(7, productDto.getProductDetail());
 
 			int result = pStmt.executeUpdate();
 			if (result != 1) {
@@ -136,6 +144,8 @@ public class ProductDao {
 		sql.append("SELECT genre, ");
 		sql.append("maker, ");
 		sql.append("productName, ");
+		sql.append("stock, ");
+		sql.append("salesCount, ");
 		sql.append("sellingPrice, ");
 		sql.append("productDetail ");
 		sql.append("FROM t_ProductInfo ");
@@ -153,6 +163,8 @@ public class ProductDao {
 				productDto.setGenre(rs.getString("genre"));
 				productDto.setMaker(rs.getString("maker"));
 				productDto.setProductName(rs.getString("productName"));
+				productDto.setStock(rs.getInt("stock"));
+				productDto.setSalesCount(rs.getInt("salesCount"));
 				productDto.setSellingPrice(rs.getBigDecimal("sellingPrice"));
 				productDto.setProductDetail(rs.getString("productDetail"));
 			}
@@ -178,6 +190,8 @@ public class ProductDao {
 		sql.append("SET genre=?, ");
 		sql.append("maker=?, ");
 		sql.append("productName=?, ");
+		sql.append("stock=?, ");
+		sql.append("salesCount=?, ");
 		sql.append("sellingPrice=?, ");
 		sql.append("productDetail=? ");
 		sql.append("WHERE productId=?");
@@ -189,9 +203,11 @@ public class ProductDao {
 			pStmt.setString(1, productDto.getGenre());
 			pStmt.setString(2, productDto.getMaker());
 			pStmt.setString(3, productDto.getProductName());
-			pStmt.setBigDecimal(4, productDto.getSellingPrice());
-			pStmt.setString(5, productDto.getProductDetail());
-			pStmt.setInt(6, productDto.getProductId());
+			pStmt.setInt(4, productDto.getStock());
+			pStmt.setInt(5, productDto.getSalesCount());
+			pStmt.setBigDecimal(6, productDto.getSellingPrice());
+			pStmt.setString(7, productDto.getProductDetail());
+			pStmt.setInt(8, productDto.getProductId());
 
 			int result = pStmt.executeUpdate();
 			if (result != 1) {

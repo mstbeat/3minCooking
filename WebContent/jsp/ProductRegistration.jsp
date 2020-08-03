@@ -31,6 +31,14 @@
         <input type="text" name="productName">
       </div>
       <div class="form-input-box">
+        <label class="form-input-box-left">在庫数：</label>
+        <input type="text" name="stock" class="form-input-box-price">
+      </div>
+      <div class="form-input-box">
+        <label>販売個数：</label>
+        <input type="text" name="salesCount" class="form-input-box-price">
+      </div>
+      <div class="form-input-box">
         <label>販売価格：</label>
         <input type="text" name="sellingPrice" class="form-input-box-price">
       </div>
