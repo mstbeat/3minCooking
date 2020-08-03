@@ -19,6 +19,8 @@
       <th class="table-header">ジャンル</th>
       <th class="table-header">メーカー</th>
       <th class="table-header">商品名</th>
+      <th class="table-header">在庫数</th>
+      <th class="table-header">販売個数</th>
       <th class="table-header">販売価格</th>
       <th class="table-header">更新</th>
     </tr>
@@ -28,6 +30,8 @@
         <td><c:out value="${Genre.getKeyByValue(productDto.genre)}" /></td>
         <td><c:out value="${productDto.maker}" /></td>
         <td><c:out value="${productDto.productName}" /></td>
+        <td class="table-right"><c:out value="${productDto.stock}" /></td>
+        <td class="table-right"><c:out value="${productDto.salesCount}" /></td>
         <td class="table-right"><c:out value="${productDto.sellingPrice}" /></td>
         <td class="table-center">
           <form  action="./product-edit" method="post">

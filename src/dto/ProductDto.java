@@ -36,6 +36,12 @@ public class ProductDto implements Serializable {
 	/** メーカー */
 	private String maker;
 
+	/** 在庫数 */
+	private int stock;
+
+	/** 販売個数 */
+	private int salesCount;
+
 	/** 販売価格 */
 	private BigDecimal sellingPrice;
 
@@ -78,6 +84,22 @@ public class ProductDto implements Serializable {
 	 */
 	public String getMaker() {
 		return maker;
+	}
+
+	/**
+	 * 在庫数のゲッターメソッド.
+	 * @return 在庫数
+	 */
+	public int getStock() {
+		return stock;
+	}
+
+	/**
+	 * 販売個数のゲッターメソッド.
+	 * @return 販売個数
+	 */
+	public int getSalesCount() {
+		return salesCount;
 	}
 
 	/**
@@ -126,6 +148,22 @@ public class ProductDto implements Serializable {
 	 */
 	public void setMaker(String maker) {
 		this.maker = maker;
+	}
+
+	/**
+	 * 在庫数のセッターメソッド.
+	 * @param stock 在庫数
+	 */
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+	/**
+	 * 販売個数のセッターメソッド.
+	 * @param salesCount 販売個数
+	 */
+	public void setSalesCount(int salesCount) {
+		this.salesCount = salesCount;
 	}
 
 	/**

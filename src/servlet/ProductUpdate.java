@@ -61,6 +61,20 @@ public class ProductUpdate extends HttpServlet {
 		String productName = request.getParameter("productName");
 		String productDetail = request.getParameter("productDetail");
 
+		int stock = 0;
+		try {
+			stock = Integer.parseInt(request.getParameter("stock"));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+
+		int salesCount = 0;
+		try {
+			salesCount = Integer.parseInt(request.getParameter("salesCount"));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+
 		BigDecimal sellingPrice = null;
 		try {
 			sellingPrice = new BigDecimal(request.getParameter("sellingPrice"));
@@ -76,6 +90,8 @@ public class ProductUpdate extends HttpServlet {
 			productDto.setGenre(genre);
 			productDto.setMaker(maker);
 			productDto.setProductName(productName);
+			productDto.setStock(stock);
+			productDto.setSalesCount(salesCount);
 			productDto.setSellingPrice(sellingPrice);
 			productDto.setProductDetail(productDetail);
 			try {
